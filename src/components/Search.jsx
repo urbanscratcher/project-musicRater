@@ -4,13 +4,13 @@ import { useKey } from '../hooks/useKey';
 function Search({ query, setQuery }) {
   const inputEl = useRef(null);
 
-  useKey('Enter', function () {
-    if (document.activeElement !== inputEl.current) {
-      inputEl.current.focus();
-      setQuery('');
-    }
-    return;
-  });
+  // useKey('Enter', function () {
+  //   if (document.activeElement !== inputEl.current) {
+  //     inputEl.current.focus();
+  //     setQuery('');
+  //   }
+  //   return;
+  // });
 
   return (
     <input
@@ -22,7 +22,7 @@ function Search({ query, setQuery }) {
       placeholder:text-slate-800
       focus:-translate-y-[2px] focus:shadow focus:outline-none"
       type="text"
-      placeholder="Search movies..."
+      placeholder="Search songs, articsts, etc..."
       value={query}
       onChange={e => setQuery(e.target.value)}
       ref={inputEl}

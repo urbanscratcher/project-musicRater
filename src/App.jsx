@@ -13,11 +13,19 @@ import MovieDetails from './components/MovieDetails';
 import useLocalStorageState from './hooks/useLocalStorageState';
 import WatchedSummary from './components/WatchedSummary';
 import WatchedMoviesList from './components/WatchedMoviesList';
+import useSearchRecommend from './hooks/useSearchRecommend';
+import Search2 from './components/Search2';
+import ModalBackground from './components/ModalBackground';
 
 function App() {
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(null);
   const { movies, isLoading, error } = useMovies(query);
+
+  const [isFocused, setIsFocused] = useState(false);
+
+  const [query2, setQuery2] = useState('');
+
   const [watched, setWatched] = useLocalStorageState([], 'watched');
 
   function handleSelectMovie(id) {
@@ -38,13 +46,23 @@ function App() {
 
   return (
     <>
+      <ModalBackground
+        isFocused={isFocused}
+        setIsFocused={setIsFocused}
+      />
       <NavBar>
-        <Search
-          query={query}
-          setQuery={setQuery}
+        <Search2
+          query={query2}
+          setQuery={setQuery2}
+          isFocused={isFocused}
+          setIsFocused={setIsFocused}
         />
-        <NumResults movies={movies} />
       </NavBar>
+
+      <Search
+        query={query}
+        setQuery={setQuery}
+      />
       <MainBox>
         <Box>
           {isLoading && <Loader />}
