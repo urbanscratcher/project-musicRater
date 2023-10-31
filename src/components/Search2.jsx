@@ -27,7 +27,7 @@ function Search2({ query, setQuery, isFocused, setIsFocused }) {
   // 0. search box area (r)
   // 2. search box (a, z-20 + r)
   // - query
-  // 3. drowdown background (a, z-3)
+  // 3. dropdown background (a, z-3)
   // - data list
 
   return (

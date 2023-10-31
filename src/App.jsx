@@ -1,21 +1,19 @@
 import { useState } from 'react';
 import './App.css';
 import Box from './components/Box';
-import MainBox from './components/MainBox';
-import NavBar from './components/NavBar';
-import NumResults from './components/NumResults';
-import Search from './components/Search';
-import Loader from './components/Loader';
-import useMovies from './hooks/useMovies';
-import MovieList from './components/MovieList';
 import ErrorMessage from './components/ErrorMessage';
-import MovieDetails from './components/MovieDetails';
-import useLocalStorageState from './hooks/useLocalStorageState';
-import WatchedSummary from './components/WatchedSummary';
-import WatchedMoviesList from './components/WatchedMoviesList';
-import useSearchRecommend from './hooks/useSearchRecommend';
-import Search2 from './components/Search2';
+import Loader from './components/Loader';
+import MainBox from './components/MainBox';
 import ModalBackground from './components/ModalBackground';
+import MovieDetails from './components/MovieDetails';
+import MovieList from './components/MovieList';
+import NavBar from './components/NavBar';
+import Search from './components/Search';
+import Search2 from './components/Search2';
+import WatchedMoviesList from './components/WatchedMoviesList';
+import WatchedSummary from './components/WatchedSummary';
+import useLocalStorageState from './hooks/useLocalStorageState';
+import useMovies from './hooks/useMovies';
 
 function App() {
   const [query, setQuery] = useState('');
@@ -23,7 +21,6 @@ function App() {
   const { movies, isLoading, error } = useMovies(query);
 
   const [isFocused, setIsFocused] = useState(false);
-
   const [query2, setQuery2] = useState('');
 
   const [watched, setWatched] = useLocalStorageState([], 'watched');
