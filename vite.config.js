@@ -6,7 +6,7 @@ import tailwindConfig from './tailwind.config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), eslint({ exclude: [/virtual:/, /node_modules/] })],
+  plugins: [react(), eslint()],
   css: {
     postcss: {
       plugins: [tailwindcss(tailwindConfig)],

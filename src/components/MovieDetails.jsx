@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Loader from './Loader';
+import Loader from './basics/Loader';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import StarRating from './StarRating';

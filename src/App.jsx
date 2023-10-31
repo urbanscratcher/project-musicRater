@@ -1,10 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
-import Box from './components/Box';
-import ErrorMessage from './components/ErrorMessage';
-import Loader from './components/Loader';
-import MainBox from './components/MainBox';
-import ModalBackground from './components/ModalBackground';
 import MovieDetails from './components/MovieDetails';
 import MovieList from './components/MovieList';
 import NavBar from './components/NavBar';
@@ -12,6 +7,13 @@ import Search from './components/Search';
 import Search2 from './components/Search2';
 import WatchedMoviesList from './components/WatchedMoviesList';
 import WatchedSummary from './components/WatchedSummary';
+import ErrorMessage from './components/basics/ErrorMessage';
+import Loader from './components/basics/Loader';
+import AsideBox from './components/layouts/AsideBox';
+import Body from './components/layouts/Body';
+import Header from './components/layouts/Header';
+import MainBox from './components/layouts/MainBox';
+import ModalBackground from './components/ui/ModalBackground';
 import useLocalStorageState from './hooks/useLocalStorageState';
 import useMovies from './hooks/useMovies';
 
@@ -20,9 +22,9 @@ function App() {
   const [selectedId, setSelectedId] = useState(null);
   const { movies, isLoading, error } = useMovies(query);
 
-  const [isFocused, setIsFocused] = useState(false);
-  const [query2, setQuery2] = useState('');
+  const [shown, setShown] = useState(false);
 
+  const [query2, setQuery2] = useState('');
   const [watched, setWatched] = useLocalStorageState([], 'watched');
 
   function handleSelectMovie(id) {
@@ -44,24 +46,26 @@ function App() {
   return (
     <>
       <ModalBackground
-        isFocused={isFocused}
-        setIsFocused={setIsFocused}
+        shown={shown}
+        setShown={setShown}
       />
-      <NavBar>
-        <Search2
-          query={query2}
-          setQuery={setQuery2}
-          isFocused={isFocused}
-          setIsFocused={setIsFocused}
-        />
-      </NavBar>
+      <Header>
+        <NavBar>
+          <Search2
+            query={query2}
+            setQuery={setQuery2}
+            isFocused={shown}
+            setIsFocused={setShown}
+          />
+        </NavBar>
+      </Header>
 
       <Search
         query={query}
         setQuery={setQuery}
       />
-      <MainBox>
-        <Box>
+      <Body>
+        <MainBox>
           {isLoading && <Loader />}
           {!isLoading && !error && (
             <MovieList
@@ -70,8 +74,8 @@ function App() {
             />
           )}
           {error && <ErrorMessage message={error} />}
-        </Box>
-        <Box>
+        </MainBox>
+        <AsideBox>
           {selectedId ? (
             <MovieDetails
               selectedId={selectedId}
@@ -88,8 +92,8 @@ function App() {
               />
             </>
           )}
-        </Box>
-      </MainBox>
+        </AsideBox>
+      </Body>
     </>
   );
 }

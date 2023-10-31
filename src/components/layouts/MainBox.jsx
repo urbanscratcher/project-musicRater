@@ -1,9 +1,11 @@
 function MainBox({ children }) {
   return (
     <main
-      className="mt-[2.4rem] flex h-[calc(100vh-7.2rem-3*2.4rem)] 
-  justify-center gap-[2.4rem]"
-    >
+      className="
+      col-[1/3]
+      overflow-x-hidden
+      bg-red-500
+      ">
       {children}
     </main>
   );

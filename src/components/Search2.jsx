@@ -1,21 +1,24 @@
 import { useRef } from 'react';
 import { useKey } from '../hooks/useKey';
 import useSearchRecommend from '../hooks/useSearchRecommend';
-import TextInput from './TextInput';
+import TextInput from './ui/TextInput';
 
 function Search2({ query, setQuery, isFocused, setIsFocused }) {
   const inputEl = useRef(null);
   const { recommends, isLoading2, error2 } = useSearchRecommend(query);
 
-  useKey('Enter', function () {
+  useKey('Enter', () => {
     if (document.activeElement !== inputEl.current) {
       inputEl.current.focus();
       setQuery('');
+    } else {
+      inputEl.current.blur();
+      setIsFocused(false);
+      setQuery(query);
     }
     return;
   });
 
-  // Rerender fetched DATA
   function handleChange(e) {
     setQuery(e.target.value);
   }
@@ -23,12 +26,6 @@ function Search2({ query, setQuery, isFocused, setIsFocused }) {
   function handleFocus(e) {
     isFocused === false && setIsFocused(true);
   }
-
-  // 0. search box area (r)
-  // 2. search box (a, z-20 + r)
-  // - query
-  // 3. dropdown background (a, z-3)
-  // - data list
 
   return (
     <div
