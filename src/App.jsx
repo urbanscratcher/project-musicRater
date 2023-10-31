@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import MovieDetails from './components/MovieDetails';
-import MovieList from './components/MovieList';
 import NavBar from './components/NavBar';
 import Search from './components/Search';
 import Search2 from './components/Search2';
+import SearchedList from './components/SearchedList';
 import WatchedMoviesList from './components/WatchedMoviesList';
 import WatchedSummary from './components/WatchedSummary';
 import ErrorMessage from './components/basics/ErrorMessage';
@@ -16,16 +16,25 @@ import MainBox from './components/layouts/MainBox';
 import ModalBackground from './components/ui/ModalBackground';
 import useLocalStorageState from './hooks/useLocalStorageState';
 import useMovies from './hooks/useMovies';
+import useMusics from './hooks/useMusics';
+import MovieList from './components/MovieList';
+import VideoDetail from './components/VideoDetail';
 
 function App() {
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(null);
   const { movies, isLoading, error } = useMovies(query);
 
-  const [shown, setShown] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
   const [query2, setQuery2] = useState('');
+  const { musics, isLoading2, error2 } = useMusics(query2);
+  const [selectedVideoId, setSelectedVideoId] = useState(null);
+
   const [watched, setWatched] = useLocalStorageState([], 'watched');
+
+  function handleSelectMusic(id) {
+    setSelectedVideoId(selectedVideoId => (id === selectedVideoId ? selectedVideoId : id));
+  }
 
   function handleSelectMovie(id) {
     setSelectedId(selectedId => (id === selectedId ? null : id));
@@ -46,26 +55,47 @@ function App() {
   return (
     <>
       <ModalBackground
-        shown={shown}
-        setShown={setShown}
+        showModal={showModal}
+        setShowModal={setShowModal}
       />
       <Header>
         <NavBar>
           <Search2
-            query={query2}
             setQuery={setQuery2}
-            isFocused={shown}
-            setIsFocused={setShown}
+            setShowModal={setShowModal}
           />
         </NavBar>
       </Header>
 
-      <Search
-        query={query}
-        setQuery={setQuery}
-      />
       <Body>
         <MainBox>
+          {isLoading2 && <Loader />}
+          {!isLoading2 && !error2 && (
+            <SearchedList
+              musics={musics.length > 0 && musics}
+              onSelectMusic={handleSelectMusic}
+            />
+          )}
+          {error2 && <ErrorMessage message={error2} />}
+        </MainBox>
+        <AsideBox>
+          {selectedVideoId ? <VideoDetail selectedVideoId={selectedVideoId} /> : <div>basic index page</div>}
+        </AsideBox>
+      </Body>
+    </>
+  );
+}
+
+export default App;
+
+{
+  /* <Search
+query={query}
+setQuery={setQuery}
+/> */
+}
+
+/* <MainBox>
           {isLoading && <Loader />}
           {!isLoading && !error && (
             <MovieList
@@ -74,28 +104,21 @@ function App() {
             />
           )}
           {error && <ErrorMessage message={error} />}
-        </MainBox>
-        <AsideBox>
-          {selectedId ? (
-            <MovieDetails
-              selectedId={selectedId}
-              watched={watched}
-              onCloseMovie={handleCloseMovie}
-              onAddWatched={handleAddWatched}
-            />
-          ) : (
-            <>
-              <WatchedSummary watched={watched} />
-              <WatchedMoviesList
-                watched={watched}
-                onDeleteWatched={handleDeleteWatched}
-              />
-            </>
-          )}
-        </AsideBox>
-      </Body>
-    </>
-  );
-}
+        </MainBox>  */
 
-export default App;
+// {selectedId ? (
+//   <MovieDetails
+//     selectedId={selectedId}
+//     watched={watched}
+//     onCloseMovie={handleCloseMovie}
+//     onAddWatched={handleAddWatched}
+//   />
+// ) : (
+//   <>
+//     <WatchedSummary watched={watched} />
+//     <WatchedMoviesList
+//       watched={watched}
+//       onDeleteWatched={handleDeleteWatched}
+//     />
+//   </>
+// )}

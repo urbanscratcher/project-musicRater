@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-const SEARCH_REC_URL = 'http://localhost:5002/search_recommend?q=';
+const SEARCH_URL = 'http://localhost:5002/search?q=';
 
-function useSearchRecommend(query) {
-  const [recommends, setRecommends] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+function useMusics(query) {
+  const [musics, setMusics] = useState([]);
+  const [isLoading2, setIsLoading] = useState(false);
+  const [error2, setError] = useState('');
 
   useEffect(() => {
     const controller = new AbortController();
@@ -15,7 +15,7 @@ function useSearchRecommend(query) {
         setIsLoading(true);
         setError('');
 
-        const res = await fetch(`${SEARCH_REC_URL}${query}`, { signal: controller.signal });
+        const res = await fetch(`${SEARCH_URL}${query}`, { signal: controller.signal });
 
         if (!res.ok) throw new Error('Something went wrong with fetching');
 
@@ -24,7 +24,7 @@ function useSearchRecommend(query) {
         // Handle status code error later
         // if (data.Response === 'False') throw new Error('Recommends not found');
 
-        setRecommends(data);
+        setMusics(data);
         setError('');
       } catch (err) {
         setError(err.message);
@@ -34,7 +34,7 @@ function useSearchRecommend(query) {
     }
 
     if (query.length <= 0) {
-      setRecommends([]);
+      setMusics([]);
       setError('');
       return;
     }
@@ -46,7 +46,7 @@ function useSearchRecommend(query) {
     };
   }, [query]);
 
-  return { recommends, isLoading, error };
+  return { musics, isLoading2, error2 };
 }
 
-export default useSearchRecommend;
+export default useMusics;

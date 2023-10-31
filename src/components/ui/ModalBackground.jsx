@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
-function ModalBackground({ shown, setShown }) {
-  const [visible, setVisible] = useState(shown);
+function ModalBackground({ showModal, setShowModal }) {
+  const [visible, setVisible] = useState(showModal);
 
   function handleClick() {
-    setShown(false);
+    setShowModal(false);
     setVisible(false);
   }
 
   useEffect(() => {
-    setVisible(shown);
-  }, [shown]);
+    setVisible(showModal);
+  }, [showModal]);
 
   return (
     visible && (

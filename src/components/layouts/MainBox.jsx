@@ -4,7 +4,7 @@ function MainBox({ children }) {
       className="
       col-[1/3]
       overflow-x-hidden
-      bg-red-500
+      bg-red-500      
       ">
       {children}
     </main>
