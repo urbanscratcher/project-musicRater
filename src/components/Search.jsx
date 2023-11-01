@@ -7,23 +7,26 @@ import TextInput from './ui/TextInput';
 
 function Search({ setQuery, setShowModal }) {
   const [searchWord, setSearchWord] = useState('');
-
   const inputEl = useRef(null);
-  const isSearched = useRef(false);
 
   const { recommends, isLoading2, error2 } = useSearchRecommend(searchWord);
 
   function handleChange(e) {
-    console.log('change..');
     setSearchWord(inputEl.current.value);
   }
 
   useKey('Enter', () => {
-    console.log('Just Entered Key');
     if (document.activeElement !== inputEl.current) {
-      console.log('Focus...', inputEl.current.value);
       inputEl.current.focus();
       setSearchWord('');
+    }
+    return;
+  });
+
+  useKey('Esc', () => {
+    if (document.activeElement === inputEl.current) {
+      setSearchWord('');
+      inputEl.current.blur();
     }
     return;
   });
@@ -40,18 +43,10 @@ function Search({ setQuery, setShowModal }) {
     e.preventDefault();
     const activeElement = document.activeElement;
     if (activeElement === e.target.querySelector('input') && searchWord !== '') {
-      console.log('Submit...');
       setQuery(searchWord);
       inputEl.current.blur();
     }
   }
-
-  useEffect(() => {
-    if (isSearched.current.value && document.activeElement !== inputEl.current) {
-      console.log('set is serached false');
-      isSearched.current = false;
-    }
-  }, [isSearched]);
 
   return (
     <div
