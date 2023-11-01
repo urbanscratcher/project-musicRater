@@ -1,4 +1,4 @@
-function TextInput({ placeholder, value, onFocus, onChange, onSubmit, inputRef, onBlur }) {
+function TextInput({ placeholder, value, onFocus, onChange, onSubmit, inputRef, onKeyDown }) {
   return (
     <form onSubmit={onSubmit}>
       <input
@@ -13,7 +13,7 @@ function TextInput({ placeholder, value, onFocus, onChange, onSubmit, inputRef, 
         value={value}
         onFocus={onFocus}
         onChange={onChange}
-        onBlur={onBlur}
+        onKeyDown={onKeyDown}
         ref={inputRef}
       />
     </form>

@@ -3,9 +3,13 @@ import { useEffect } from 'react';
 export function useKey(key, action) {
   useEffect(() => {
     function callback(e) {
-      console.log('e.code', e.code);
-      console.log('key', key);
-      if (e.code.toLowerCase() === key.toLowerCase() || (e.code === 'Escape' && key === 'Esc')) {
+      if (
+        e.code.toLowerCase() === key.toLowerCase() ||
+        (e.code === 'Escape' && key === 'Esc') ||
+        (e.code === 'ArrowDown' && key === 'Down') ||
+        (e.code === 'ArrowUp' && key === 'Up')
+      ) {
+        console.log('key event', key);
         action();
       }
     }

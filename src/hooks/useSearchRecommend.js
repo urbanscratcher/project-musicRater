@@ -8,7 +8,6 @@ function useSearchRecommend(query) {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    console.log('recommending on', query);
     const controller = new AbortController();
 
     async function fetchRecommends() {

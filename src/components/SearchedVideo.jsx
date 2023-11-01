@@ -1,7 +1,7 @@
-function SearchedVideo({ video, onSelectMusic, key }) {
+function SearchedVideo({ video, onSelectMusic, id }) {
   return (
     <li
-      key={key}
+      key={id}
       onClick={e => {
         e.preventDefault();
         console.log('what', video);

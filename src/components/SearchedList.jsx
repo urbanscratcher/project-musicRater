@@ -19,6 +19,7 @@ function SearchedList({ musics, onSelectMusic }) {
             <SearchedVideo
               video={video}
               key={video.videoId}
+              id={video.videoId}
               onSelectMusic={onSelectMusic}
             />
           ))}
