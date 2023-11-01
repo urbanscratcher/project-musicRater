@@ -1,21 +1,27 @@
 import { useEffect, useState } from 'react';
 
-const SEARCH_URL = 'http://localhost:5002/search';
+const GET_SONG_URL = 'http://localhost:5002/song/';
 
-function useMusics(query) {
-  const [musics, setMusics] = useState([]);
-  const [isLoading2, setIsLoading] = useState(false);
-  const [error2, setError] = useState('');
+function useGetVideo(videoId) {
+  const [video, setVideo] = useState({});
+  const [isLoading3, setIsLoading] = useState(false);
+  const [error3, setError] = useState('');
 
   useEffect(() => {
+    if (!videoId) {
+      setVideo({});
+      setError('');
+      return;
+    }
+
     const controller = new AbortController();
 
-    async function fetchMusics() {
+    async function fetchVideo() {
       try {
         setIsLoading(true);
         setError('');
 
-        const res = await fetch(`${SEARCH_URL}?q=${query}&f=videos`, { signal: controller.signal });
+        const res = await fetch(`${GET_SONG_URL}${videoId}`, { signal: controller.signal });
 
         if (!res.ok) throw new Error('Something went wrong with fetching');
 
@@ -24,7 +30,7 @@ function useMusics(query) {
         // Handle status code error later
         // if (data.Response === 'False') throw new Error('Recommends not found');
 
-        setMusics(data);
+        setVideo(data);
         setError('');
       } catch (err) {
         setError(err.message);
@@ -33,20 +39,14 @@ function useMusics(query) {
       }
     }
 
-    if (query.length <= 0) {
-      setMusics([]);
-      setError('');
-      return;
-    }
-
-    fetchMusics();
+    fetchVideo();
 
     return () => {
       controller.abort();
     };
-  }, [query]);
+  }, [videoId]);
 
-  return { musics, isLoading2, error2 };
+  return { video, isLoading3, error3 };
 }
 
-export default useMusics;
+export default useGetVideo;

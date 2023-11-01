@@ -1,8 +1,25 @@
-# React + Vite
+# PlaylistPal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 목적
 
-Currently, two official plugins are available:
+- 음악 검색 및 관리
+- useState, useEffect, useRef, custom use hook 연습
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 기능
+
+- 유튜브에서 음악 검색
+- 추천 검색어 제공
+- 평점 남기기
+- 평점, 영상 길이 평균
+- 남긴 평점 목록 + 필터링
+- 플레이리스트 평점, 영상 길이 평균
+- 플레이리스트 담기, 삭제
+- 플레이리스트 순차+랜덤 재생
+
+## 사용 라이브러리 & 기술
+
+- Vite + React (pnpm)
+- TailwindCSS
+- ytmusicapi
+- Docker
+- react-youtube (YouTube IFrame API)

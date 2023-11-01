@@ -3,7 +3,6 @@ import './App.css';
 import MovieDetails from './components/MovieDetails';
 import NavBar from './components/NavBar';
 import Search from './components/Search';
-import Search2 from './components/Search2';
 import SearchedList from './components/SearchedList';
 import WatchedMoviesList from './components/WatchedMoviesList';
 import WatchedSummary from './components/WatchedSummary';
@@ -36,22 +35,6 @@ function App() {
     setSelectedVideoId(selectedVideoId => (id === selectedVideoId ? selectedVideoId : id));
   }
 
-  function handleSelectMovie(id) {
-    setSelectedId(selectedId => (id === selectedId ? null : id));
-  }
-
-  function handleCloseMovie() {
-    setSelectedId(null);
-  }
-
-  function handleAddWatched(movie) {
-    setWatched(watched => [...watched, movie]);
-  }
-
-  function handleDeleteWatched(id) {
-    setWatched(watched => watched.filter(m => m.imdbID !== id));
-  }
-
   return (
     <>
       <ModalBackground
@@ -60,7 +43,7 @@ function App() {
       />
       <Header>
         <NavBar>
-          <Search2
+          <Search
             setQuery={setQuery2}
             setShowModal={setShowModal}
           />
@@ -88,12 +71,21 @@ function App() {
 
 export default App;
 
-{
-  /* <Search
-query={query}
-setQuery={setQuery}
-/> */
-}
+// function handleSelectMovie(id) {
+//   setSelectedId(selectedId => (id === selectedId ? null : id));
+// }
+
+// function handleCloseMovie() {
+//   setSelectedId(null);
+// }
+
+// function handleAddWatched(movie) {
+//   setWatched(watched => [...watched, movie]);
+// }
+
+// function handleDeleteWatched(id) {
+//   setWatched(watched => watched.filter(m => m.imdbID !== id));
+// }
 
 /* <MainBox>
           {isLoading && <Loader />}
