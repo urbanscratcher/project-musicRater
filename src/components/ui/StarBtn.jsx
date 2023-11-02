@@ -1,12 +1,12 @@
-function Star({ color = 'black', full, half, onClickStar, onHoverIn, onHoverOut, onMouseMove }) {
+function StarBtn({ color = 'black', full, half, onClickStar, onHoverIn, onHoverOut, onMouseMove, clickable }) {
   return (
     <span
-      role="button"
-      className="block h-12 w-12 cursor-pointer"
-      onClick={onClickStar}
-      onMouseEnter={onHoverIn}
-      onMouseLeave={onHoverOut}
-      onMouseMove={onMouseMove}>
+      role={clickable && 'button'}
+      className={`block h-12 w-12 ${clickable && 'cursor-pointer'}`}
+      onClick={clickable && onClickStar}
+      onMouseEnter={clickable && onHoverIn}
+      onMouseLeave={clickable && onHoverOut}
+      onMouseMove={clickable && onMouseMove}>
       {full ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,4 +33,4 @@ function Star({ color = 'black', full, half, onClickStar, onHoverIn, onHoverOut,
   );
 }
 
-export default Star;
+export default StarBtn;

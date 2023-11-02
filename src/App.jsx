@@ -1,54 +1,43 @@
 import { useState } from 'react';
 import './App.css';
-import Logo from './components/Logo';
-import NavBar from './components/NavBar';
-import Search from './components/Search';
-import SearchedList from './components/SearchedList';
-import VideoDetail from './components/VideoDetail';
 import ErrorMessage from './components/basics/ErrorMessage';
 import Loader from './components/basics/Loader';
 import AsideBox from './components/layouts/AsideBox';
 import Body from './components/layouts/Body';
 import Header from './components/layouts/Header';
 import MainBox from './components/layouts/MainBox';
+import Logo from './components/navBar/Logo';
+import NavBar from './components/navBar/NavBar';
+import NavMenuBox from './components/navBar/NavMenuBox';
+import Search from './components/navBar/Search';
+import RatedPage from './components/rated/RatedPage';
+import SearchedList from './components/searchedResult/SearchedList';
 import ModalBackground from './components/ui/ModalBackground';
+import PlaylistBtn from './components/ui/PlaylistBtn';
+import StarBtn from './components/ui/StarBtn';
+import VideoDetail from './components/videoDetail/VideoDetail';
 import useLocalStorage from './hooks/useLocalStorage';
 import useMusics from './hooks/useMusics';
-import NavMenu from './components/NavMenu';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedVideoId, setSelectedVideoId] = useState(null);
-  const [rated, setRated] = useLocalStorage([], 'rated');
+  const [page, setPage] = useState('');
+  const [storedRatedList, setStoredRatedList] = useLocalStorage([], 'rated');
 
   const { musics, isLoading, error } = useMusics(query);
 
-  function handleSetRating(video, rating) {
-    const ratedVideo = rated.filter(rated => selectedVideoId === rated?.id);
-    const isRated = ratedVideo.length > 0;
-
-    isRated
-      ? setRated(
-          rated.map(ratedVideo => {
-            if (ratedVideo.id === video.videoDetails.videoId) {
-              ratedVideo.rating = rating;
-            }
-            return ratedVideo;
-          }),
-        )
-      : setRated(rated => [
-          ...rated,
-          {
-            id: video.videoDetails.videoId,
-            rating: rating,
-            info: video,
-          },
-        ]);
-  }
-
   function handleSelectMusic(id) {
     setSelectedVideoId(selectedVideoId => (id === selectedVideoId ? selectedVideoId : id));
+  }
+
+  function handleClickStar() {
+    setPage('star');
+  }
+
+  function handleClickPlaylist() {
+    setPage('playlist');
   }
 
   return (
@@ -63,33 +52,56 @@ function App() {
           <Search
             setQuery={setQuery}
             setShowModal={setShowModal}
+            setPage={setPage}
           />
-          <NavMenu />
+          <NavMenuBox>
+            <StarBtn
+              full={true}
+              half={false}
+              color={'white'}
+              onClickStar={handleClickStar}
+            />
+          </NavMenuBox>
         </NavBar>
       </Header>
 
       <Body>
-        <MainBox>
-          {isLoading && <Loader />}
-          {!isLoading && !error && (
-            <SearchedList
-              musics={musics.length > 0 && musics}
-              onSelectMusic={handleSelectMusic}
-            />
-          )}
-          {error && <ErrorMessage message={error} />}
-        </MainBox>
-        <AsideBox>
-          {selectedVideoId ? (
-            <VideoDetail
-              selectedVideoId={selectedVideoId}
-              rated={rated}
-              onSetRated={(video, rating) => handleSetRating(video, rating)}
-            />
-          ) : (
-            <div>basic index page</div>
-          )}
-        </AsideBox>
+        <>
+          <MainBox>
+            {page === 'star' ? (
+              <RatedPage
+                storedRatedList={storedRatedList}
+                onSetStoredRatedList={setStoredRatedList}
+                onSetSelectedVideoId={setSelectedVideoId}
+              />
+            ) : page === 'playlist' ? (
+              <div>playlist</div>
+            ) : isLoading ? (
+              <Loader />
+            ) : error ? (
+              <ErrorMessage message={error} />
+            ) : (
+              !isLoading &&
+              !error && (
+                <SearchedList
+                  musics={musics.length > 0 && musics}
+                  onSelectMusic={handleSelectMusic}
+                />
+              )
+            )}
+          </MainBox>
+          <AsideBox>
+            {selectedVideoId ? (
+              <VideoDetail
+                selectedVideoId={selectedVideoId}
+                storedRatedList={storedRatedList}
+                onSetStoredRatedList={setStoredRatedList}
+              />
+            ) : (
+              <div>basic index page</div>
+            )}
+          </AsideBox>
+        </>
       </Body>
     </>
   );

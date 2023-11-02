@@ -1,9 +1,10 @@
-# PlaylistPal
+# MusicRater
 
 ## 목적
 
 - 음악 검색 및 관리
 - useState, useEffect, useRef, custom use hook 연습
+- React, React-DOM만 사용
 
 ## 기능
 
@@ -18,8 +19,8 @@
 
 ## 사용 라이브러리 & 기술
 
-- Vite + React (pnpm)
+- Vite + React w/ pnpm
 - TailwindCSS
-- ytmusicapi
 - Docker
+- ytmusicapi
 - react-youtube (YouTube IFrame API)

@@ -1,13 +1,13 @@
 function MainBox({ children }) {
   return (
-    <main
+    <div
       className="
-      col-[1/3]
+      w-2/3
       overflow-x-hidden
       bg-red-500      
       ">
       {children}
-    </main>
+    </div>
   );
 }
 

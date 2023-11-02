@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
-import { useKey } from '../hooks/useKey';
-import useSearchRecommend from '../hooks/useSearchRecommend';
-import ErrorMessage from './basics/ErrorMessage';
-import Loader from './basics/Loader';
-import TextInput from './ui/TextInput';
+import { useKey } from '../../hooks/useKey';
+import useSearchRecommend from '../../hooks/useSearchRecommend';
+import ErrorMessage from '../basics/ErrorMessage';
+import Loader from '../basics/Loader';
+import TextInput from '../ui/TextInput';
 import { useEffect } from 'react';
 
-function Search({ setQuery, setShowModal }) {
+function Search({ setQuery, setShowModal, setPage }) {
   const [searchWord, setSearchWord] = useState('');
   const [selectedWord, setSelectedWord] = useState('');
   const [selectedIdx, setSelectedIdx] = useState(-1);
@@ -38,6 +38,7 @@ function Search({ setQuery, setShowModal }) {
       setShowModal(false);
       setSelectedWord('');
       setSelectedIdx(-1);
+      setPage('search');
     }
   }
 
@@ -89,33 +90,33 @@ function Search({ setQuery, setShowModal }) {
   }
 
   return (
-    <div
-      className="absolute top-[18%]
-    z-20 flex flex-col self-baseline justify-self-center">
-      <TextInput
-        placeholder="Search songs, artists, etc..."
-        value={searchWord}
-        onFocus={handleFocus}
-        onChange={handleChange}
-        onSubmit={handleSubmit}
-        onKeyDown={handleInputKeyDown}
-        inputRef={inputEl}
-      />
-      {document.activeElement === inputEl.current && isLoading && <Loader />}
-      {document.activeElement === inputEl.current && error && <ErrorMessage message={error} />}
-      {document.activeElement === inputEl.current && !isLoading && !error && recommends?.length > 0 && (
-        <ul
-          className="flex flex-col"
-          ref={ulEl}>
-          {recommends.map((recommend, idx) => (
-            <li
-              className={recommend === selectedWord ? 'bg-red-500' : ''}
-              key={recommend}>
-              {recommend}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="relative w-[100%] self-stretch">
+      <div className="absolute left-[50%] top-[18%] z-20 translate-x-[-50%]">
+        <TextInput
+          placeholder="Search songs, artists, etc..."
+          value={searchWord}
+          onFocus={handleFocus}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          onKeyDown={handleInputKeyDown}
+          inputRef={inputEl}
+        />
+        {document.activeElement === inputEl.current && isLoading && <Loader />}
+        {document.activeElement === inputEl.current && error && <ErrorMessage message={error} />}
+        {document.activeElement === inputEl.current && !isLoading && !error && recommends?.length > 0 && (
+          <ul
+            className="flex flex-col"
+            ref={ulEl}>
+            {recommends.map((recommend, idx) => (
+              <li
+                className={recommend === selectedWord ? 'bg-red-500' : ''}
+                key={recommend}>
+                {recommend}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

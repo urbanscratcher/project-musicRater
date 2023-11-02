@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Loader from './basics/Loader';
+import Loader from '../basics/Loader';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-import StarRating from './backup/StarRating_back';
+import StarRating from './StarRating_back';
 
 const KEY = '590860d3';
 

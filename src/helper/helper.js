@@ -10,3 +10,11 @@ export function storeValue(key, value) {
 export function average(arr) {
   return arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 }
+
+export function maximum(arr) {
+  return Math.max(...arr);
+}
+
+export function minimum(arr) {
+  return Math.min(...arr);
+}

@@ -6,7 +6,7 @@ function Logo() {
         role="img">
         🎧
       </span>
-      <h1 className="text-4xl font-semibold text-white">PlaylistPal</h1>
+      <h1 className="text-4xl font-semibold text-white">MusicRater</h1>
     </div>
   );
 }

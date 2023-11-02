@@ -1,4 +1,4 @@
-import { average } from '../helper/helper';
+import { average } from '../../helper/helper';
 
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map(movie => movie.imdbRating));

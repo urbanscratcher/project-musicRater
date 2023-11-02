@@ -1,15 +1,18 @@
-import useGetVideo from '../hooks/useGetVideo';
-import StarRating from './StarRating';
+import { useEffect } from 'react';
+import useGetVideo from '../../hooks/useGetVideo';
+import ErrorMessage from '../basics/ErrorMessage';
+import Loader from '../basics/Loader';
 import VideoPlayer from './VideoPlayer';
-import ErrorMessage from './basics/ErrorMessage';
-import Loader from './basics/Loader';
+import VideoStarRating from './VideoStarRating';
+import { useState } from 'react';
 
-function VideoDetail({ selectedVideoId, rated, onSetRated }) {
-  const ratedVideo = rated.filter(rated => selectedVideoId === rated?.id);
-  const isRated = ratedVideo.length > 0;
-  const defaultRating = isRated ? ratedVideo[0]?.rating : 0;
-
+function VideoDetail({ selectedVideoId, onSetStoredRatedList, storedRatedList }) {
   const { video, isLoading, error } = useGetVideo(selectedVideoId);
+  const [ratedList, setRatedList] = useState(storedRatedList);
+
+  useEffect(() => {
+    setRatedList(storedRatedList);
+  }, [storedRatedList]);
 
   return (
     <>
@@ -17,9 +20,11 @@ function VideoDetail({ selectedVideoId, rated, onSetRated }) {
       {isLoading && <Loader />}
       {!error && !isLoading && (
         <div>
-          <StarRating
-            defaultRating={defaultRating}
-            onSetRating={rating => onSetRated(video, rating)}
+          <VideoStarRating
+            video={video}
+            videoId={selectedVideoId}
+            storedRatedList={ratedList}
+            onSetStoredRatedList={onSetStoredRatedList}
           />
           <VideoPlayer selectedVideoId={selectedVideoId} />
           <p>title: {video.videoDetails?.title}</p>

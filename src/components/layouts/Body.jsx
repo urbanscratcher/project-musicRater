@@ -1,15 +1,14 @@
 function Body({ children }) {
   return (
-    <div
+    <main
       className="
         mx-[auto]
-        grid
+        flex
         h-[calc(100vh-7.2rem)]
         max-w-screen-2xl
-        grid-cols-3
        ">
       {children}
-    </div>
+    </main>
   );
 }
 

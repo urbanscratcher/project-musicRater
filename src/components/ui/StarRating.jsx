@@ -1,13 +1,22 @@
 import { useState } from 'react';
-import Star from './Star';
+import StarBtn from './StarBtn';
+import { useEffect } from 'react';
 
-function StarRating({ maxRating = 5, primary = true, defaultRating, onSetRating }) {
+function StarRating({ maxRating = 5, primary = true, defaultRating, onSetRating, clickable = true }) {
   const [hoveredRating, setHoveredRating] = useState(-1);
   const [rating, setRating] = useState(defaultRating);
   const colorName = primary ? 'white' : 'red';
   const colorStyle = primary ? 'text-white' : 'text-red';
 
-  function handleClickStar(hoveredRating, onSetRating) {
+  useEffect(() => {
+    setRating(defaultRating);
+  }, [defaultRating]);
+
+  function handleClickStar(e, hoveredRating, onSetRating) {
+    e.stopPropagation();
+    if (!clickable) {
+      return;
+    }
     setRating(hoveredRating);
     onSetRating && onSetRating(hoveredRating);
   }
@@ -29,19 +38,22 @@ function StarRating({ maxRating = 5, primary = true, defaultRating, onSetRating 
       <div className="flex gap-1">
         {Array.from({ length: maxRating }, (_, idx) => {
           return (
-            <Star
+            <StarBtn
+              clickable={clickable}
               key={idx}
               color={colorName}
               full={hoveredRating >= 0 ? hoveredRating >= idx + 1 : rating >= idx + 1}
               half={hoveredRating >= 0 ? hoveredRating >= idx + 0.5 : rating >= idx + 0.5}
-              onClickStar={e => handleClickStar(hoveredRating, onSetRating)}
+              onClickStar={e => handleClickStar(e, hoveredRating, onSetRating)}
               onHoverOut={handleHoverOut}
               onMouseMove={e => handleMouseMove(e, idx)}
             />
           );
         })}
       </div>
-      <p className={`${colorStyle}  text-4xl font-semibold`}>{hoveredRating >= 0 ? hoveredRating : rating}</p>
+      {clickable && (
+        <p className={`${colorStyle}  text-4xl font-semibold`}>{hoveredRating >= 0 ? hoveredRating : rating}</p>
+      )}
     </div>
   );
 }
