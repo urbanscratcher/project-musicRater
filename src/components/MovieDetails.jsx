@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Loader from './basics/Loader';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-import StarRating from './StarRating';
+import StarRating from './backup/StarRating_back';
 
 const KEY = '590860d3';
 
@@ -28,6 +28,7 @@ function MovieDetails({ selectedId, watched, onCloseMovie, onAddWatched }) {
   useEffect(() => {
     userRating && counterRef.current++;
   }, [userRating]);
+
   const isWatched = watched.map(movie => movie.imdbID).includes(selectedId);
   const watchedUserRating = watched.find(movie => movie.imdbID === selectedId)?.userRating;
 

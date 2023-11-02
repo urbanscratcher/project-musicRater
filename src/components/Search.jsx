@@ -49,8 +49,6 @@ function Search({ setQuery, setShowModal }) {
     return;
   });
 
-  function handleKeyDown(e) {}
-
   function handleInputKeyDown(e) {
     const listLength = recommends.length;
     const isComposing = e.nativeEvent.isComposing;
@@ -108,8 +106,7 @@ function Search({ setQuery, setShowModal }) {
       {document.activeElement === inputEl.current && !isLoading && !error && recommends?.length > 0 && (
         <ul
           className="flex flex-col"
-          ref={ulEl}
-          onKeyDown={handleKeyDown}>
+          ref={ulEl}>
           {recommends.map((recommend, idx) => (
             <li
               className={recommend === selectedWord ? 'bg-red-500' : ''}

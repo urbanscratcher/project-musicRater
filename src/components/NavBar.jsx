@@ -1,5 +1,3 @@
-import Logo from './Logo';
-
 function NavBar({ children }) {
   return (
     <nav
@@ -14,7 +12,6 @@ function NavBar({ children }) {
         px-[3.2rem]
         text-red-500
         ">
-      <Logo />
       {children}
     </nav>
   );

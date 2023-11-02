@@ -1,23 +1,31 @@
 import useGetVideo from '../hooks/useGetVideo';
+import StarRating from './StarRating';
 import VideoPlayer from './VideoPlayer';
 import ErrorMessage from './basics/ErrorMessage';
 import Loader from './basics/Loader';
 
-function VideoDetail({ selectedVideoId }) {
-  const { video, isLoading3, error3 } = useGetVideo(selectedVideoId);
+function VideoDetail({ selectedVideoId, rated, onSetRated }) {
+  const ratedVideo = rated.filter(rated => selectedVideoId === rated?.id);
+  const isRated = ratedVideo.length > 0;
+  const defaultRating = isRated ? ratedVideo[0]?.rating : 0;
+
+  const { video, isLoading, error } = useGetVideo(selectedVideoId);
 
   return (
     <>
-      {error3 && <ErrorMessage message={error3} />}
-      {isLoading3 && <Loader />}
-      {!error3 && !isLoading3 && (
+      {error && <ErrorMessage message={error} />}
+      {isLoading && <Loader />}
+      {!error && !isLoading && (
         <div>
+          <StarRating
+            defaultRating={defaultRating}
+            onSetRating={rating => onSetRated(video, rating)}
+          />
           <VideoPlayer selectedVideoId={selectedVideoId} />
           <p>title: {video.videoDetails?.title}</p>
           <p>channelId: {video.videoDetails?.channelId}</p>
           <p>viewCount: {video.microformat?.microformatDataRenderer?.viewCount}</p>
           <p>uploadDate: {video.microformat?.microformatDataRenderer?.uploadDate}</p>
-          <p>channelId: {video.videoDetails?.channelId}</p>
           <p>description: {video.microformat?.microformatDataRenderer?.description}</p>
           <p>
             thumbnails: <img src={video.microformat?.microformatDataRenderer?.thumbnail?.thumbnails[0]?.url} />

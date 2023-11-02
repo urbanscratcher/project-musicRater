@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
-import MovieDetails from './components/MovieDetails';
+import Logo from './components/Logo';
 import NavBar from './components/NavBar';
 import Search from './components/Search';
 import SearchedList from './components/SearchedList';
-import WatchedMoviesList from './components/WatchedMoviesList';
-import WatchedSummary from './components/WatchedSummary';
+import VideoDetail from './components/VideoDetail';
 import ErrorMessage from './components/basics/ErrorMessage';
 import Loader from './components/basics/Loader';
 import AsideBox from './components/layouts/AsideBox';
@@ -13,23 +12,40 @@ import Body from './components/layouts/Body';
 import Header from './components/layouts/Header';
 import MainBox from './components/layouts/MainBox';
 import ModalBackground from './components/ui/ModalBackground';
-import useLocalStorageState from './hooks/useLocalStorageState';
-import useMovies from './hooks/useMovies';
+import useLocalStorage from './hooks/useLocalStorage';
 import useMusics from './hooks/useMusics';
-import MovieList from './components/MovieList';
-import VideoDetail from './components/VideoDetail';
+import NavMenu from './components/NavMenu';
 
 function App() {
-  const [query, setQuery] = useState('');
-  const [selectedId, setSelectedId] = useState(null);
-  const { movies, isLoading, error } = useMovies(query);
-
   const [showModal, setShowModal] = useState(false);
-  const [query2, setQuery2] = useState('');
-  const { musics, isLoading2, error2 } = useMusics(query2);
+  const [query, setQuery] = useState('');
   const [selectedVideoId, setSelectedVideoId] = useState(null);
+  const [rated, setRated] = useLocalStorage([], 'rated');
 
-  const [watched, setWatched] = useLocalStorageState([], 'watched');
+  const { musics, isLoading, error } = useMusics(query);
+
+  function handleSetRating(video, rating) {
+    const ratedVideo = rated.filter(rated => selectedVideoId === rated?.id);
+    const isRated = ratedVideo.length > 0;
+
+    isRated
+      ? setRated(
+          rated.map(ratedVideo => {
+            if (ratedVideo.id === video.videoDetails.videoId) {
+              ratedVideo.rating = rating;
+            }
+            return ratedVideo;
+          }),
+        )
+      : setRated(rated => [
+          ...rated,
+          {
+            id: video.videoDetails.videoId,
+            rating: rating,
+            info: video,
+          },
+        ]);
+  }
 
   function handleSelectMusic(id) {
     setSelectedVideoId(selectedVideoId => (id === selectedVideoId ? selectedVideoId : id));
@@ -43,26 +59,36 @@ function App() {
       />
       <Header>
         <NavBar>
+          <Logo />
           <Search
-            setQuery={setQuery2}
+            setQuery={setQuery}
             setShowModal={setShowModal}
           />
+          <NavMenu />
         </NavBar>
       </Header>
 
       <Body>
         <MainBox>
-          {isLoading2 && <Loader />}
-          {!isLoading2 && !error2 && (
+          {isLoading && <Loader />}
+          {!isLoading && !error && (
             <SearchedList
               musics={musics.length > 0 && musics}
               onSelectMusic={handleSelectMusic}
             />
           )}
-          {error2 && <ErrorMessage message={error2} />}
+          {error && <ErrorMessage message={error} />}
         </MainBox>
         <AsideBox>
-          {selectedVideoId ? <VideoDetail selectedVideoId={selectedVideoId} /> : <div>basic index page</div>}
+          {selectedVideoId ? (
+            <VideoDetail
+              selectedVideoId={selectedVideoId}
+              rated={rated}
+              onSetRated={(video, rating) => handleSetRating(video, rating)}
+            />
+          ) : (
+            <div>basic index page</div>
+          )}
         </AsideBox>
       </Body>
     </>

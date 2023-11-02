@@ -4,8 +4,8 @@ const GET_SONG_URL = 'http://localhost:5002/song/';
 
 function useGetVideo(videoId) {
   const [video, setVideo] = useState({});
-  const [isLoading3, setIsLoading] = useState(false);
-  const [error3, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!videoId) {
@@ -46,7 +46,7 @@ function useGetVideo(videoId) {
     };
   }, [videoId]);
 
-  return { video, isLoading3, error3 };
+  return { video, isLoading, error };
 }
 
 export default useGetVideo;

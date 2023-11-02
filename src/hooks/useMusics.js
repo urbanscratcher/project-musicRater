@@ -4,8 +4,8 @@ const SEARCH_URL = 'http://localhost:5002/search';
 
 function useMusics(query) {
   const [musics, setMusics] = useState([]);
-  const [isLoading2, setIsLoading] = useState(false);
-  const [error2, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const controller = new AbortController();
@@ -46,7 +46,7 @@ function useMusics(query) {
     };
   }, [query]);
 
-  return { musics, isLoading2, error2 };
+  return { musics, isLoading, error };
 }
 
 export default useMusics;
