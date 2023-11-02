@@ -1,4 +1,4 @@
-function StarBtn({ color = 'black', full, half, onClickStar, onHoverIn, onHoverOut, onMouseMove, clickable }) {
+function StarBtn({ color = 'black', full, half, onClickStar, onHoverIn, onHoverOut, onMouseMove, clickable = true }) {
   return (
     <span
       role={clickable && 'button'}

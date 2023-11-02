@@ -1,6 +1,7 @@
 function SearchedVideo({ video, onSelectMusic, id }) {
   return (
     <li
+      className="cursor-pointer"
       key={id}
       onClick={e => {
         e.preventDefault();
