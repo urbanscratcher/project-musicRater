@@ -93,8 +93,6 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
   }
 
   function handleClickRecommend(e, recommendWord) {
-    const activeElement = document.activeElement;
-    // if (activeElement === e.target.querySelector('input') && searchWord !== '') {
     if (selectedWord !== '') setSearchWord(selectedWord);
     setQuery(selectedWord !== '' ? selectedWord : searchWord);
     inputRef.current.blur();
@@ -102,7 +100,6 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
     setSelectedWord('');
     setSelectedIdx(-1);
     setPage('search');
-    // }
   }
 
   return (

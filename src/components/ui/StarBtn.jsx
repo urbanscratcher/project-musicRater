@@ -1,8 +1,18 @@
-function StarBtn({ color = 'black', full, half, onClickStar, onHoverIn, onHoverOut, onMouseMove, clickable = true }) {
+function StarBtn({
+  color = 'black',
+  full,
+  half,
+  onClickStar,
+  onHoverIn,
+  onHoverOut,
+  onMouseMove,
+  clickable = true,
+  size = 'md',
+}) {
   return (
     <span
       role={clickable && 'button'}
-      className={`block h-12 w-12 ${clickable && 'cursor-pointer'}`}
+      className={`block ${size === 'md' ? 'h-8 w-8' : size === 'sm' && 'h-6 w-6'} ${clickable && 'cursor-pointer'}`}
       onClick={clickable && onClickStar}
       onMouseEnter={clickable && onHoverIn}
       onMouseLeave={clickable && onHoverOut}

@@ -1,5 +1,5 @@
-function SearchBarBox({ children }) {
-  return <div className="flex max-w-3xl items-center">{children}</div>;
+function SearchBarBox({ children, page }) {
+  return <div className={`flex items-center ${page !== 'main' && 'px-20'}`}>{children}</div>;
 }
 
 export default SearchBarBox;

@@ -19,6 +19,7 @@ import useLocalStorage from './hooks/useLocalStorage';
 import useMusics from './hooks/useMusics';
 import LogoBox from './components/navBar/LogoBox';
 import SearchBarBox from './components/navBar/SearchBarBox';
+import PlaylistBtn from './components/ui/PlaylistBtn';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -60,11 +61,9 @@ function App() {
             />
           </SearchBarBox>
           <NavMenuBox page={page}>
-            <StarBtn
-              full={true}
-              half={false}
-              color={'white'}
-              onClickStar={handleClickStar}
+            <PlaylistBtn
+              color={'black'}
+              onClick={handleClickStar}
             />
           </NavMenuBox>
         </NavBar>
