@@ -27,6 +27,11 @@ https://github.com/urbanscratcher/project-musicRater/assets/17016494/8e236eae-5a
 - Vite + React w/ pnpm
 - TailwindCSS
 - Docker
-- ytmusicapi
 - react-youtube (YouTube IFrame API)
 - react-top-loading-bar
+
+## 백엔드 API
+- ytmusicapi 파이썬 라이브러리 이용
+- 간단한 GET 엔드포인트로 이루어진 API
+- https://placidgull.com/ytapi 도메인 연결
+- CORS
