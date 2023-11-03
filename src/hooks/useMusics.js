@@ -11,6 +11,8 @@ function useMusics(query) {
     const controller = new AbortController();
 
     async function fetchMusics() {
+      let data;
+
       try {
         setIsLoading(true);
         setError('');
@@ -18,8 +20,15 @@ function useMusics(query) {
         const res = await fetch(`${SEARCH_URL}?q=${query}&f=videos`, { signal: controller.signal });
 
         if (!res.ok) throw new Error('Something went wrong with fetching');
+        data = await res.json();
 
-        const data = await res.json();
+        if (data.length <= 0) {
+          const extendRes = await fetch(`${SEARCH_URL}?q=${query}&f=`, { signal: controller.signal });
+
+          if (!extendRes.ok) throw new Error('Something went wrong with fetching');
+          data = await extendRes.json();
+          data = data.filter(el => el.category === 'Top result' || el.resultType === 'video');
+        }
 
         // Handle status code error later
         // if (data.Response === 'False') throw new Error('Recommends not found');

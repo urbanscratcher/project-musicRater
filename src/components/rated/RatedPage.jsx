@@ -1,11 +1,11 @@
 import RatedList from './RatedList';
 
-function RatedPage({ storedRatedList, onSetStoredRatedList, onSetSelectedVideoId }) {
+function RatedPage({ storedRatedList, onSetStoredRatedList, onSelectMusic }) {
   return (
     <RatedList
       storedRatedList={storedRatedList}
       onSetStoredRatedList={onSetStoredRatedList}
-      onSetSelectedVideoId={onSetSelectedVideoId}
+      onSelectMusic={onSelectMusic}
     />
   );
 }

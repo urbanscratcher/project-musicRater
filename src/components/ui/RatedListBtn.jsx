@@ -1,8 +1,8 @@
-function PlaylistBtn({ onClickPlaylist, color = 'black', onClick }) {
+function RatedListBtn({ onClickPlaylist, color = 'black', onClick }) {
   return (
     <span
       role="button"
-      className="block h-12 w-12 cursor-pointer"
+      className="block h-10 w-10 cursor-pointer"
       onClick={onClick}>
       <svg
         fill={color}
@@ -16,4 +16,4 @@ function PlaylistBtn({ onClickPlaylist, color = 'black', onClick }) {
   );
 }
 
-export default PlaylistBtn;
+export default RatedListBtn;

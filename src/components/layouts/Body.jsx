@@ -1,12 +1,12 @@
 function Body({ children }) {
   return (
     <main
-      className="
+      className={`
         mx-[auto]
         flex
         h-[calc(100vh-7.2rem)]
-        max-w-screen-2xl
-       ">
+        max-w-screen-2xl        
+       `}>
       {children}
     </main>
   );

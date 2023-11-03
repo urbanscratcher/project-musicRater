@@ -7,24 +7,23 @@ import Body from './components/layouts/Body';
 import Header from './components/layouts/Header';
 import MainBox from './components/layouts/MainBox';
 import Logo from './components/navBar/Logo';
+import LogoBox from './components/navBar/LogoBox';
 import NavBar from './components/navBar/NavBar';
 import NavMenuBox from './components/navBar/NavMenuBox';
 import SearchBar from './components/navBar/SearchBar';
+import SearchBarBox from './components/navBar/SearchBarBox';
 import RatedPage from './components/rated/RatedPage';
-import SearchedList from './components/searchedResult/SearchedList';
+import SearchedResults from './components/searchedResult/SearchedResults';
 import ModalBackground from './components/ui/ModalBackground';
-import StarBtn from './components/ui/StarBtn';
+import RatedListBtn from './components/ui/RatedListBtn';
 import VideoDetail from './components/videoDetail/VideoDetail';
 import useLocalStorage from './hooks/useLocalStorage';
 import useMusics from './hooks/useMusics';
-import LogoBox from './components/navBar/LogoBox';
-import SearchBarBox from './components/navBar/SearchBarBox';
-import PlaylistBtn from './components/ui/PlaylistBtn';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const [query, setQuery] = useState('');
   const [selectedVideoId, setSelectedVideoId] = useState(null);
+  const [query, setQuery] = useState('');
   const [page, setPage] = useState('');
   const [storedRatedList, setStoredRatedList] = useLocalStorage([], 'rated');
 
@@ -43,75 +42,73 @@ function App() {
   }
 
   return (
-    <div className="mx-auto max-w-screen-2xl">
-      <ModalBackground
-        showModal={showModal}
-        setShowModal={setShowModal}
-      />
-      <Header page={page}>
-        <NavBar page={page}>
-          <LogoBox page={page}>
-            <Logo onClickLogo={handleClickLogo} />
-          </LogoBox>
-          <SearchBarBox page={page}>
-            <SearchBar
-              setQuery={setQuery}
-              setShowModal={setShowModal}
-              setPage={setPage}
-            />
-          </SearchBarBox>
-          <NavMenuBox page={page}>
-            <PlaylistBtn
-              color={'black'}
-              onClick={handleClickStar}
-            />
-          </NavMenuBox>
-        </NavBar>
-      </Header>
+    <>
+      <div className={`flex flex-col scroll-smooth transition-all`}>
+        <ModalBackground
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+        <Header page={page}>
+          <NavBar page={page}>
+            <LogoBox page={page}>
+              <Logo onClickLogo={handleClickLogo} />
+            </LogoBox>
+            <SearchBarBox page={page}>
+              <SearchBar
+                setQuery={setQuery}
+                setShowModal={setShowModal}
+                setPage={setPage}
+              />
+            </SearchBarBox>
+            <NavMenuBox page={page}>
+              <RatedListBtn
+                color={'black'}
+                onClick={handleClickStar}
+              />
+            </NavMenuBox>
+          </NavBar>
+        </Header>
 
-      {page === 'main' ? (
-        <></>
-      ) : (
-        <Body>
-          <>
-            <MainBox>
-              {page === 'star' ? (
-                <RatedPage
-                  storedRatedList={storedRatedList}
-                  onSetStoredRatedList={setStoredRatedList}
-                  onSetSelectedVideoId={setSelectedVideoId}
-                />
-              ) : page === 'playlist' ? (
-                <div>playlist</div>
-              ) : isLoading ? (
-                <Loader />
-              ) : error ? (
-                <ErrorMessage message={error} />
-              ) : (
-                !isLoading &&
-                !error && (
-                  <SearchedList
-                    musics={musics.length > 0 && musics}
+        {page !== 'main' && (
+          <Body>
+            <>
+              <MainBox>
+                {page === 'star' ? (
+                  <RatedPage
+                    storedRatedList={storedRatedList}
+                    onSetStoredRatedList={setStoredRatedList}
                     onSelectMusic={handleSelectMusic}
                   />
-                )
-              )}
-            </MainBox>
-            <AsideBox>
-              {selectedVideoId ? (
-                <VideoDetail
-                  selectedVideoId={selectedVideoId}
-                  storedRatedList={storedRatedList}
-                  onSetStoredRatedList={setStoredRatedList}
-                />
-              ) : (
-                <div>basic index page</div>
-              )}
-            </AsideBox>
-          </>
-        </Body>
-      )}
-    </div>
+                ) : isLoading ? (
+                  <Loader />
+                ) : error ? (
+                  <ErrorMessage message={error} />
+                ) : (
+                  !isLoading &&
+                  !error && (
+                    <SearchedResults
+                      musics={musics.length > 0 && musics}
+                      onSelectMusic={handleSelectMusic}
+                    />
+                  )
+                )}
+              </MainBox>
+              <AsideBox>
+                {selectedVideoId ? (
+                  <VideoDetail
+                    selectedVideoId={selectedVideoId}
+                    storedRatedList={storedRatedList}
+                    onSetStoredRatedList={setStoredRatedList}
+                  />
+                ) : (
+                  <div>basic index page</div>
+                )}
+              </AsideBox>
+            </>
+          </Body>
+        )}
+      </div>
+    </>
   );
 }
 

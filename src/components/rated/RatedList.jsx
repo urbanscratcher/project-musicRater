@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import DeleteBtn from '../ui/DeleteBtn';
 import RatedSummary from './RatedSummary';
 
-function RatedList({ storedRatedList, onSetStoredRatedList, onSetSelectedVideoId }) {
+function RatedList({ storedRatedList, onSetStoredRatedList, onSelectMusic }) {
   const [ratedList, setRatedList] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function RatedList({ storedRatedList, onSetStoredRatedList, onSetSelectedVideoId
   }
 
   function handleClickList(e, videoId) {
-    onSetSelectedVideoId(videoId);
+    onSelectMusic(videoId);
   }
 
   return (

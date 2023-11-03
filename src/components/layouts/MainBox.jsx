@@ -4,7 +4,9 @@ function MainBox({ children }) {
       className="
       w-2/3
       overflow-x-hidden
-      bg-red-500      
+      bg-transparent
+      px-12
+      pt-8
       ">
       {children}
     </div>
