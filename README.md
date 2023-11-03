@@ -3,7 +3,7 @@
 ## 목적
 
 - 음악 검색, 평가, 평가 항목 관리
-- useState, useEffect, useRef, custom use hook 연습
+- useState, useEffect, useRef, custom use hook 연습에 주력
 - React, React-DOM만 사용
 
 ## URL
