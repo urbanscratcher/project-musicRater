@@ -5,7 +5,6 @@ function SearchedVideo({ video, onSelectMusic, id }) {
       key={id}
       onClick={e => {
         e.preventDefault();
-        console.log('what', video);
         onSelectMusic(video?.videoId);
       }}>
       <div>category: {video?.category}</div>

@@ -1,8 +1,6 @@
 function SearchedArtist({ artist, key }) {
   const thumbnailIdx = artist?.thumbnails.length >= 2 ? 1 : artist?.thumbnails.length >= 1 ? 0 : undefined;
 
-  console.log(artist.artist, artist.thumbnails);
-
   return (
     <li key={key}>
       <div>category: {artist.category}</div>

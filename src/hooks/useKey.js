@@ -9,7 +9,6 @@ export function useKey(key, action) {
         (e.code === 'ArrowDown' && key === 'Down') ||
         (e.code === 'ArrowUp' && key === 'Up')
       ) {
-        console.log('key event', key);
         action();
       }
     }

@@ -20,7 +20,7 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
     setSelectedIdx(-1);
   }, [recommends]);
 
-  function handleChange(e, value) {
+  function handleChange(e) {
     setSearchWord(inputRef.current.value);
   }
 
@@ -92,6 +92,19 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
     }
   }
 
+  function handleClickRecommend(e, recommendWord) {
+    const activeElement = document.activeElement;
+    // if (activeElement === e.target.querySelector('input') && searchWord !== '') {
+    if (selectedWord !== '') setSearchWord(selectedWord);
+    setQuery(selectedWord !== '' ? selectedWord : searchWord);
+    inputRef.current.blur();
+    setShowModal(false);
+    setSelectedWord('');
+    setSelectedIdx(-1);
+    setPage('search');
+    // }
+  }
+
   return (
     <div className="relative w-[100%] self-stretch">
       <div className="absolute top-[18%] z-20 w-[100%]">
@@ -114,13 +127,19 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
             ref={ulEl}>
             {recommends.map((recommend, idx) => (
               <li
+                onMouseOver={() => {
+                  setSelectedWord(recommend);
+                  setSelectedIdx(idx);
+                }}
                 className={`${
                   recommend === selectedWord ? 'font-regular bg-white bg-opacity-20 py-3 text-3xl text-black' : ''
-                } flex w-full gap-3 rounded-full px-9 py-2 transition-all`}
-                key={recommend}>
+                }
+                flex w-full cursor-default gap-3 rounded-full px-9 py-2 transition-all`}
+                key={recommend}
+                onClick={e => handleClickRecommend(e, recommend)}>
                 <SearchIcon
                   color={'#111'}
-                  styleClass={'translate-y-[2px] transition-all'}
+                  styleClass={`translate-y-[2px] transition-all`}
                   size={recommend === selectedWord ? 'md' : 'sm'}
                 />
                 {recommend}

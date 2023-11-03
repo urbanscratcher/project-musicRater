@@ -17,6 +17,7 @@ function TextInput({ placeholder, value, onFocus, onChange, onSubmit, inputRef, 
           <SearchIcon
             color={document.activeElement === inputRef.current ? '#444' : '#aaa'}
             styleClass={'absolute translate-y-[2px] z-30'}
+            size="md"
           />
           {document.activeElement === inputRef.current && (
             <CloseBtn
