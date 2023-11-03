@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-
-const SEARCH_URL = 'http://localhost:5002/search';
+import { getBaseUrl } from '../helper/helper';
 
 function useMusics(query) {
   const [musics, setMusics] = useState([]);
@@ -17,13 +16,13 @@ function useMusics(query) {
         setIsLoading(true);
         setError('');
 
-        const res = await fetch(`${SEARCH_URL}?q=${query}&f=videos`, { signal: controller.signal });
+        const res = await fetch(`${getBaseUrl()}/search?q=${query}&f=videos`, { signal: controller.signal });
 
         if (!res.ok) throw new Error('Something went wrong with fetching');
         data = await res.json();
 
         if (data.length <= 0) {
-          const extendRes = await fetch(`${SEARCH_URL}?q=${query}&f=`, { signal: controller.signal });
+          const extendRes = await fetch(`${getBaseUrl()}/search?q=${query}&f=`, { signal: controller.signal });
 
           if (!extendRes.ok) throw new Error('Something went wrong with fetching');
           data = await extendRes.json();

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-
-const GET_SONG_URL = 'http://localhost:5002/song/';
+import { getBaseUrl } from '../helper/helper';
 
 function useGetVideo(videoId) {
   const [video, setVideo] = useState({});
@@ -21,7 +20,7 @@ function useGetVideo(videoId) {
         setIsLoading(true);
         setError('');
 
-        const res = await fetch(`${GET_SONG_URL}${videoId}`, { signal: controller.signal });
+        const res = await fetch(`${getBaseUrl()}/song/${videoId}`, { signal: controller.signal });
 
         if (!res.ok) throw new Error('Something went wrong with fetching');
 

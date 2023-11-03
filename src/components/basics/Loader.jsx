@@ -1,5 +1,6 @@
 function Loader({ onSetProgress }) {
   onSetProgress(100);
+
   return (
     <div
       role="status"
@@ -19,7 +20,7 @@ function Loader({ onSetProgress }) {
           fill="currentFill"
         />
       </svg>
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only"></span>
     </div>
   );
 }

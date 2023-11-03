@@ -18,3 +18,7 @@ export function maximum(arr) {
 export function minimum(arr) {
   return Math.min(...arr);
 }
+
+export function getBaseUrl() {
+  return import.meta.env.VITE_BASE_URL && 'http://localhost:5002';
+}

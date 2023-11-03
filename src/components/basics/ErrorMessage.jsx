@@ -1,10 +1,5 @@
 function ErrorMessage({ message }) {
-  return (
-    <p className="">
-      <span>❌</span>
-      {message}
-    </p>
-  );
+  return <p className="">{message}</p>;
 }
 
 export default ErrorMessage;

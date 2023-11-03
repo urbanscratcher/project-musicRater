@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-
-const SEARCH_REC_URL = 'http://localhost:5002/search_recommend?q=';
+import { getBaseUrl } from '../helper/helper';
 
 function useSearchRecommend(query) {
   const [recommends, setRecommends] = useState([]);
@@ -15,7 +14,7 @@ function useSearchRecommend(query) {
         setIsLoading(true);
         setError('');
 
-        const res = await fetch(`${SEARCH_REC_URL}${query}`, { signal: controller.signal });
+        const res = await fetch(`${getBaseUrl()}/search_recommend?q=${query}`, { signal: controller.signal });
 
         if (!res.ok) throw new Error('Something went wrong with fetching');
 

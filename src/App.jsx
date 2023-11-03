@@ -69,7 +69,7 @@ function App() {
                 setQuery={setQuery}
                 setShowModal={setShowModal}
                 setPage={setPage}
-                onSetProgress={val => setProgress(val + 100)}
+                onSetProgress={setProgress}
               />
             </SearchBarBox>
             <NavMenuBox page={page}>
