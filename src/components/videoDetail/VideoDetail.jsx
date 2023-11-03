@@ -48,11 +48,11 @@ function VideoDetail({ selectedVideoId, onSetStoredRatedList, storedRatedList, o
   }, [data?.title]);
 
   return (
-    <>
+    <div className="flex flex-col gap-3">
       {error && <ErrorMessage message={error} />}
       {isLoading && <Loader onSetProgress={onSetProgress} />}
       {!error && !isLoading && (
-        <div className="flex flex-col gap-3">
+        <>
           {data?.title && <p className="px-2 text-start text-2xl">{truncateSentence(data?.title, 55)}</p>}
           <div className="mx-auto overflow-hidden rounded-xl">
             <VideoPlayer
@@ -98,9 +98,9 @@ function VideoDetail({ selectedVideoId, onSetStoredRatedList, storedRatedList, o
               </p>
             )}
           </div>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 }
 

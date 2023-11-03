@@ -20,5 +20,5 @@ export function minimum(arr) {
 }
 
 export function getBaseUrl() {
-  return import.meta.env.VITE_BASE_URL && 'http://localhost:5002';
+  return import.meta.env.VITE_BASE_URL;
 }
