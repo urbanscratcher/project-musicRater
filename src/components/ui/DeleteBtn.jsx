@@ -1,8 +1,8 @@
-function DeleteBtn({ onClose: onDelete, color = 'white' }) {
+function DeleteBtn({ onDelete, color = 'white' }) {
   return (
     <span
       role="button"
-      className="block h-[32px] w-[32px] cursor-pointer"
+      className="block h-8 w-8 cursor-pointer"
       onClick={onDelete}>
       <svg
         xmlns="http://www.w3.org/2000/svg"

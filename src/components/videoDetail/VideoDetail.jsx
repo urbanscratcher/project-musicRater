@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 function arrangeVideoDetail(video) {
   return {
-    title: video?.microformat?.microformatDataRenderer?.title,
+    title: video?.videoDetails?.title,
     viewCount: video?.microformat?.microformatDataRenderer?.viewCount,
     uploadAt: video?.microformat?.microformatDataRenderer?.uploadDate,
     description: video?.microformat?.microformatDataRenderer?.description,
@@ -27,10 +27,12 @@ function truncateSentence(sentence, length) {
   const arr = sentence.split('');
   if (arr.length > length) {
     return arr.slice(0, length).join('') + '...';
+  } else {
+    return sentence;
   }
 }
 
-function VideoDetail({ selectedVideoId, onSetStoredRatedList, storedRatedList }) {
+function VideoDetail({ selectedVideoId, onSetStoredRatedList, storedRatedList, onSetProgress }) {
   const { video, isLoading, error } = useGetVideo(selectedVideoId);
   const [ratedList, setRatedList] = useState(storedRatedList);
 
@@ -48,10 +50,10 @@ function VideoDetail({ selectedVideoId, onSetStoredRatedList, storedRatedList })
   return (
     <>
       {error && <ErrorMessage message={error} />}
-      {isLoading && <Loader />}
+      {isLoading && <Loader onSetProgress={onSetProgress} />}
       {!error && !isLoading && (
-        <div className="flex flex-col gap-5">
-          {data?.title && <p className="text-start text-2xl">{truncateSentence(data?.title, 55)}</p>}
+        <div className="flex flex-col gap-3">
+          {data?.title && <p className="px-2 text-start text-2xl">{truncateSentence(data?.title, 55)}</p>}
           <div className="mx-auto overflow-hidden rounded-xl">
             <VideoPlayer
               selectedVideoId={selectedVideoId}
@@ -59,7 +61,7 @@ function VideoDetail({ selectedVideoId, onSetStoredRatedList, storedRatedList })
               width="425px"
             />
           </div>
-          <div className="pl-8">
+          <div className="my-6 pl-9">
             <VideoStarRating
               size={'lg'}
               video={video}
@@ -70,13 +72,15 @@ function VideoDetail({ selectedVideoId, onSetStoredRatedList, storedRatedList })
           </div>
           <div className="flex flex-col gap-2 rounded-lg bg-gray-100 px-4 py-3 text-start">
             <div className="flex items-end gap-3">
-              <a
-                className="text-xl hover:underline"
-                href={data.channelUrl}
-                target="_blank"
-                rel="noreferrer">
-                {data.channelName}
-              </a>
+              {data?.channelUrl && data?.channelName && (
+                <a
+                  className="text-xl hover:underline"
+                  href={data.channelUrl}
+                  target="_blank"
+                  rel="noreferrer">
+                  {data.channelName}
+                </a>
+              )}
               {data?.uploadAt && (
                 <p className="text-sm text-gray-600">
                   {new Date(data.uploadAt).toLocaleDateString('ko-KR', {
@@ -87,7 +91,7 @@ function VideoDetail({ selectedVideoId, onSetStoredRatedList, storedRatedList })
                 </p>
               )}
             </div>
-            <p className="text-sm text-gray-600">{data.description}</p>
+            {data?.description && <p className="text-sm text-gray-600">{data.description}</p>}
             {data?.durationMin && data?.durationSec && (
               <p className="text-right text-sm">
                 {data.durationMin} min {data.durationSec} sec

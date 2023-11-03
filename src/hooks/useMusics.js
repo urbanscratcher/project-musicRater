@@ -30,12 +30,12 @@ function useMusics(query) {
           data = data.filter(el => el.category === 'Top result' || el.resultType === 'video');
         }
 
-        // Handle status code error later
-        // if (data.Response === 'False') throw new Error('Recommends not found');
-
         setMusics(data);
         setError('');
       } catch (err) {
+        if (err.message === 'The user aborted a request.') {
+          return;
+        }
         setError(err.message);
       } finally {
         setIsLoading(false);

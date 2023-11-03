@@ -19,7 +19,7 @@ function arrangeTopResult(topResult) {
       thumbnail: topResult?.thumbnails[topResult?.thumbnails?.length - 1]?.url,
     };
   } else {
-    console.log('CHECK DIFFERENT');
+    console.log('CHECK DIFFERENT RESULT');
     console.log(topResult);
   }
   return res;

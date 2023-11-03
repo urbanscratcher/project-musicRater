@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import LoadingBar from 'react-top-loading-bar';
+
 import './App.css';
 import ErrorMessage from './components/basics/ErrorMessage';
 import Loader from './components/basics/Loader';
@@ -26,6 +28,8 @@ function App() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState('');
   const [storedRatedList, setStoredRatedList] = useLocalStorage([], 'rated');
+  const [progress, setProgress] = useState(0);
+
   const { musics, isLoading, error } = useMusics(query);
 
   function handleSelectMusic(id) {
@@ -37,12 +41,20 @@ function App() {
   }
 
   function handleClickLogo() {
+    setQuery('');
+    setSelectedVideoId(null);
     setPage('main');
   }
 
   return (
     <>
       <div className={`flex flex-col scroll-smooth transition-all`}>
+        <LoadingBar
+          color={'#444'}
+          height={3}
+          progress={progress}
+          onLoaderFinished={() => setProgress(0)}
+        />
         <ModalBackground
           showModal={showModal}
           setShowModal={setShowModal}
@@ -57,6 +69,7 @@ function App() {
                 setQuery={setQuery}
                 setShowModal={setShowModal}
                 setPage={setPage}
+                onSetProgress={val => setProgress(val + 100)}
               />
             </SearchBarBox>
             <NavMenuBox page={page}>
@@ -71,7 +84,7 @@ function App() {
         {page !== 'main' && (
           <Body>
             <>
-              <MainBox>
+              <MainBox selectedVideoId={selectedVideoId}>
                 {page === 'star' ? (
                   <RatedPage
                     storedRatedList={storedRatedList}
@@ -79,7 +92,7 @@ function App() {
                     onSelectMusic={handleSelectMusic}
                   />
                 ) : isLoading ? (
-                  <Loader />
+                  <Loader onSetProgress={setProgress} />
                 ) : error ? (
                   <ErrorMessage message={error} />
                 ) : (
@@ -98,6 +111,7 @@ function App() {
                     selectedVideoId={selectedVideoId}
                     storedRatedList={storedRatedList}
                     onSetStoredRatedList={setStoredRatedList}
+                    onSetProgress={setProgress}
                   />
                 </AsideBox>
               )}

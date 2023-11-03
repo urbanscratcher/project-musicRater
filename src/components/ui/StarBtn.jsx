@@ -15,10 +15,10 @@ function StarBtn({
       className={`block ${size === 'md' ? 'h-8 w-8' : size === 'sm' ? 'h-6 w-6' : size === 'lg' && 'h-14 w-14'} ${
         clickable && 'cursor-pointer'
       }`}
-      onClick={clickable && onClickStar}
-      onMouseEnter={clickable && onHoverIn}
-      onMouseLeave={clickable && onHoverOut}
-      onMouseMove={clickable && onMouseMove}>
+      onClick={clickable ? onClickStar : undefined}
+      onMouseEnter={clickable ? onHoverIn : undefined}
+      onMouseLeave={clickable ? onHoverOut : undefined}
+      onMouseMove={clickable ? onMouseMove : undefined}>
       {full ? (
         <svg
           fill={color}

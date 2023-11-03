@@ -21,13 +21,12 @@ function useSearchRecommend(query) {
 
         const data = await res.json();
 
-        // Handle status code error later
-        // if (data.Response === 'False') throw new Error('Recommends not found');
-
         setRecommends(data);
         setError('');
       } catch (err) {
-        setError(err.message);
+        if (err.message === 'The user aborted a request.') {
+          return;
+        }
       } finally {
         setIsLoading(false);
       }

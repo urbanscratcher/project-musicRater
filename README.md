@@ -24,3 +24,4 @@
 - Docker
 - ytmusicapi
 - react-youtube (YouTube IFrame API)
+- react-top-loading-bar

@@ -8,7 +8,7 @@ function arrangeVideo(video) {
   };
 }
 
-function SearchedVideo({ video, onSelectMusic, id }) {
+function SearchedVideoItem({ video, onSelectMusic, id }) {
   const data = arrangeVideo(video);
 
   return (
@@ -33,4 +33,4 @@ function SearchedVideo({ video, onSelectMusic, id }) {
   );
 }
 
-export default SearchedVideo;
+export default SearchedVideoItem;

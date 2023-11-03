@@ -1,13 +1,14 @@
-function MainBox({ children }) {
+function MainBox({ children, selectedVideoId }) {
   return (
     <div
-      className="
-      w-2/3
+      className={`
+      ${selectedVideoId ? 'w-2/3' : 'w-full'}
       overflow-x-hidden
       bg-transparent
       px-12
       pt-8
-      ">
+      transition-all
+      `}>
       {children}
     </div>
   );

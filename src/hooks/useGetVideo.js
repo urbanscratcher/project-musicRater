@@ -27,12 +27,12 @@ function useGetVideo(videoId) {
 
         const data = await res.json();
 
-        // Handle status code error later
-        // if (data.Response === 'False') throw new Error('Recommends not found');
-
         setVideo(data);
         setError('');
       } catch (err) {
+        if (err.message === 'The user aborted a request.') {
+          return;
+        }
         setError(err.message);
       } finally {
         setIsLoading(false);

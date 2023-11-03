@@ -6,7 +6,7 @@ import Loader from '../basics/Loader';
 import TextInput from '../ui/TextInput';
 import SearchIcon from '../ui/SearchIcon';
 
-function SearchBar({ setQuery, setShowModal, setPage }) {
+function SearchBar({ setQuery, setShowModal, setPage, onSetProgress }) {
   const [searchWord, setSearchWord] = useState('');
   const [selectedWord, setSelectedWord] = useState('');
   const [selectedIdx, setSelectedIdx] = useState(-1);
@@ -116,7 +116,7 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
           inputRef={inputRef}
           type="search"
         />
-        {document.activeElement === inputRef.current && isLoading && <Loader />}
+        {document.activeElement === inputRef.current && isLoading && <Loader onSetProgress={onSetProgress} />}
         {document.activeElement === inputRef.current && error && <ErrorMessage message={error} />}
         {document.activeElement === inputRef.current && !isLoading && !error && recommends?.length > 0 && (
           <ul
