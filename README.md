@@ -6,8 +6,8 @@
 - useState, useEffect, useRef, custom use hook 연습
 - React, React-DOM만 사용
 
-## 데모
-https://github.com/urbanscratcher/project-musicRater/assets/17016494/8e236eae-5a6e-4386-9e51-19223b317e7f
+## URL
+https://music-rater.netlify.app
 
 ## 기능
 
@@ -18,6 +18,9 @@ https://github.com/urbanscratcher/project-musicRater/assets/17016494/8e236eae-5a
 - 남긴 평점 목록 보기
 - 평점 기능은 전역적으로 적용
 - 검색창 엔터키(검색), ESC키(취소) 기능 사용
+
+## 데모
+https://github.com/urbanscratcher/project-musicRater/assets/17016494/8e236eae-5a6e-4386-9e51-19223b317e7f
 
 ## 사용 라이브러리 & 기술
 
