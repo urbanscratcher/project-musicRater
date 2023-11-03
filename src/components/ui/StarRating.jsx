@@ -2,11 +2,11 @@ import { useState } from 'react';
 import StarBtn from './StarBtn';
 import { useEffect } from 'react';
 
-function StarRating({ maxRating = 5, primary = true, defaultRating, onSetRating, clickable = true }) {
+function StarRating({ maxRating = 5, primary = true, defaultRating, onSetRating, clickable = true, size = 'md' }) {
   const [hoveredRating, setHoveredRating] = useState(-1);
   const [rating, setRating] = useState(defaultRating);
-  const colorName = primary ? 'white' : 'red';
-  const colorStyle = primary ? 'text-white' : 'text-red';
+  const colorName = primary ? 'black' : 'red';
+  const colorStyle = primary ? 'text-black' : 'text-red';
 
   useEffect(() => {
     setRating(defaultRating);
@@ -35,10 +35,11 @@ function StarRating({ maxRating = 5, primary = true, defaultRating, onSetRating,
 
   return (
     <div className="flex items-center gap-2">
-      <div className="flex">
+      <div className="flex px-1">
         {Array.from({ length: maxRating }, (_, idx) => {
           return (
             <StarBtn
+              size={size}
               clickable={clickable}
               key={idx}
               color={colorName}
@@ -52,7 +53,12 @@ function StarRating({ maxRating = 5, primary = true, defaultRating, onSetRating,
         })}
       </div>
       {clickable && (
-        <p className={`${colorStyle}  text-4xl font-semibold`}>{hoveredRating >= 0 ? hoveredRating : rating}</p>
+        <p
+          className={`${colorStyle}  ${
+            size === 'md' ? 'text-3xl' : size === 'lg' ? 'text-5xl' : size === 'sm' && 'text-xl'
+          } translate-y-[0.5px] font-semibold`}>
+          {hoveredRating >= 0 ? hoveredRating : rating}
+        </p>
       )}
     </div>
   );

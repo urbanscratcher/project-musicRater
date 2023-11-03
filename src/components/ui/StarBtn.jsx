@@ -12,7 +12,9 @@ function StarBtn({
   return (
     <span
       role={clickable && 'button'}
-      className={`block ${size === 'md' ? 'h-8 w-8' : size === 'sm' && 'h-6 w-6'} ${clickable && 'cursor-pointer'}`}
+      className={`block ${size === 'md' ? 'h-8 w-8' : size === 'sm' ? 'h-6 w-6' : size === 'lg' && 'h-14 w-14'} ${
+        clickable && 'cursor-pointer'
+      }`}
       onClick={clickable && onClickStar}
       onMouseEnter={clickable && onHoverIn}
       onMouseLeave={clickable && onHoverOut}

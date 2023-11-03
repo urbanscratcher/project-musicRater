@@ -10,8 +10,17 @@ function arrangeTopResult(topResult) {
       title: topResult?.title,
       thumbnail: topResult?.thumbnails[topResult?.thumbnails?.length - 1]?.url,
     };
+  } else if (resultType === 'artist') {
+    res = {
+      type: 'artist',
+      artistName: topResult?.artists[0]?.name,
+      artistId: topResult?.artists[0]?.id,
+      subscribers: topResult?.subscribers,
+      thumbnail: topResult?.thumbnails[topResult?.thumbnails?.length - 1]?.url,
+    };
   } else {
     console.log('CHECK DIFFERENT');
+    console.log(topResult);
   }
   return res;
 }
@@ -30,8 +39,16 @@ function SearchedTop({ topResult }) {
             alt={data.artistName}
           />
           <div className="flex flex-col justify-center gap-2 text-start">
-            <p className="text-3xl">{data.title}</p>
-            <p>{data.artistName}</p>
+            <p className="text-3xl">
+              {data.type === 'album' ? data.title : data.type === 'artist' ? data.artistName : ''}
+            </p>
+            <p className="text-gray-600">
+              {data.type === 'album'
+                ? data.artistName
+                : data.type === 'artist'
+                ? data.subscribers + ' subscribers'
+                : ''}
+            </p>
           </div>
         </div>
       </div>

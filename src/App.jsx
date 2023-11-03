@@ -26,7 +26,6 @@ function App() {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState('');
   const [storedRatedList, setStoredRatedList] = useLocalStorage([], 'rated');
-
   const { musics, isLoading, error } = useMusics(query);
 
   function handleSelectMusic(id) {
@@ -93,17 +92,15 @@ function App() {
                   )
                 )}
               </MainBox>
-              <AsideBox>
-                {selectedVideoId ? (
+              {selectedVideoId && (
+                <AsideBox>
                   <VideoDetail
                     selectedVideoId={selectedVideoId}
                     storedRatedList={storedRatedList}
                     onSetStoredRatedList={setStoredRatedList}
                   />
-                ) : (
-                  <div>basic index page</div>
-                )}
-              </AsideBox>
+                </AsideBox>
+              )}
             </>
           </Body>
         )}
@@ -113,47 +110,3 @@ function App() {
 }
 
 export default App;
-
-// function handleSelectMovie(id) {
-//   setSelectedId(selectedId => (id === selectedId ? null : id));
-// }
-
-// function handleCloseMovie() {
-//   setSelectedId(null);
-// }
-
-// function handleAddWatched(movie) {
-//   setWatched(watched => [...watched, movie]);
-// }
-
-// function handleDeleteWatched(id) {
-//   setWatched(watched => watched.filter(m => m.imdbID !== id));
-// }
-
-/* <MainBox>
-          {isLoading && <Loader />}
-          {!isLoading && !error && (
-            <MovieList
-              movies={movies}
-              onSelectMovie={handleSelectMovie}
-            />
-          )}
-          {error && <ErrorMessage message={error} />}
-        </MainBox>  */
-
-// {selectedId ? (
-//   <MovieDetails
-//     selectedId={selectedId}
-//     watched={watched}
-//     onCloseMovie={handleCloseMovie}
-//     onAddWatched={handleAddWatched}
-//   />
-// ) : (
-//   <>
-//     <WatchedSummary watched={watched} />
-//     <WatchedMoviesList
-//       watched={watched}
-//       onDeleteWatched={handleDeleteWatched}
-//     />
-//   </>
-// )}

@@ -5,45 +5,95 @@ import Loader from '../basics/Loader';
 import VideoPlayer from './VideoPlayer';
 import VideoStarRating from './VideoStarRating';
 import { useState } from 'react';
-import { useRef } from 'react';
+
+function arrangeVideoDetail(video) {
+  return {
+    title: video?.microformat?.microformatDataRenderer?.title,
+    viewCount: video?.microformat?.microformatDataRenderer?.viewCount,
+    uploadAt: video?.microformat?.microformatDataRenderer?.uploadDate,
+    description: video?.microformat?.microformatDataRenderer?.description,
+    videoId: video?.videoDetails?.videoId,
+    durationMin: Math.floor(video?.microformat?.microformatDataRenderer?.videoDetails?.durationSeconds / 60),
+    durationSec:
+      video?.microformat?.microformatDataRenderer?.videoDetails?.durationSeconds -
+      Math.floor(video?.microformat?.microformatDataRenderer?.videoDetails?.durationSeconds / 60) * 60,
+    channelName: video?.microformat?.microformatDataRenderer?.pageOwnerDetails?.name,
+    channelId: video?.microformat?.microformatDataRenderer?.pageOwnerDetails?.externalChannelId,
+    channelUrl: video?.microformat?.microformatDataRenderer?.pageOwnerDetails?.youtubeProfileUrl,
+  };
+}
+
+function truncateSentence(sentence, length) {
+  const arr = sentence.split('');
+  if (arr.length > length) {
+    return arr.slice(0, length).join('') + '...';
+  }
+}
 
 function VideoDetail({ selectedVideoId, onSetStoredRatedList, storedRatedList }) {
   const { video, isLoading, error } = useGetVideo(selectedVideoId);
   const [ratedList, setRatedList] = useState(storedRatedList);
-  const imgRef = useRef('');
+
+  const data = arrangeVideoDetail(video);
 
   useEffect(() => {
     setRatedList(storedRatedList);
   }, [storedRatedList]);
+
+  useEffect(() => {
+    if (!data?.title) return;
+    document.title = `MusicRater | ${data?.title}`;
+  }, [data?.title]);
 
   return (
     <>
       {error && <ErrorMessage message={error} />}
       {isLoading && <Loader />}
       {!error && !isLoading && (
-        <div>
-          <VideoStarRating
-            video={video}
-            videoId={selectedVideoId}
-            storedRatedList={ratedList}
-            onSetStoredRatedList={onSetStoredRatedList}
-          />
-          <VideoPlayer selectedVideoId={selectedVideoId} />
-          <p>title: {video.videoDetails?.title}</p>
-          <p>channelId: {video.videoDetails?.channelId}</p>
-          <p>viewCount: {video.microformat?.microformatDataRenderer?.viewCount}</p>
-          <p>uploadDate: {video.microformat?.microformatDataRenderer?.uploadDate}</p>
-          <p>description: {video.microformat?.microformatDataRenderer?.description}</p>
-          <p>
-            thumbnails:
-            <img src={video.microformat?.microformatDataRenderer?.thumbnail?.thumbnails[0]?.url} />
-          </p>
-          <p>
-            duration: {Math.floor(video?.microformat?.microformatDataRenderer?.videoDetails.durationSeconds / 60)} min{' '}
-            {video?.microformat?.microformatDataRenderer?.videoDetails.durationSeconds -
-              Math.floor(video?.microformat?.microformatDataRenderer?.videoDetails.durationSeconds / 60) * 60}{' '}
-            sec
-          </p>
+        <div className="flex flex-col gap-5">
+          {data?.title && <p className="text-start text-2xl">{truncateSentence(data?.title, 55)}</p>}
+          <div className="mx-auto overflow-hidden rounded-xl">
+            <VideoPlayer
+              selectedVideoId={selectedVideoId}
+              height="240px"
+              width="425px"
+            />
+          </div>
+          <div className="pl-8">
+            <VideoStarRating
+              size={'lg'}
+              video={video}
+              videoId={selectedVideoId}
+              storedRatedList={ratedList}
+              onSetStoredRatedList={onSetStoredRatedList}
+            />
+          </div>
+          <div className="flex flex-col gap-2 rounded-lg bg-gray-100 px-4 py-3 text-start">
+            <div className="flex items-end gap-3">
+              <a
+                className="text-xl hover:underline"
+                href={data.channelUrl}
+                target="_blank"
+                rel="noreferrer">
+                {data.channelName}
+              </a>
+              {data?.uploadAt && (
+                <p className="text-sm text-gray-600">
+                  {new Date(data.uploadAt).toLocaleDateString('ko-KR', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: 'numeric',
+                  })}
+                </p>
+              )}
+            </div>
+            <p className="text-sm text-gray-600">{data.description}</p>
+            {data?.durationMin && data?.durationSec && (
+              <p className="text-right text-sm">
+                {data.durationMin} min {data.durationSec} sec
+              </p>
+            )}
+          </div>
         </div>
       )}
     </>

@@ -1,6 +1,6 @@
 import StarRating from '../ui/StarRating';
 
-function VideoStarRating({ video, videoId, onSetStoredRatedList, storedRatedList }) {
+function VideoStarRating({ video, videoId, onSetStoredRatedList, storedRatedList, size }) {
   function handleSetRating(video, rating) {
     const ratedVideo = storedRatedList.filter(rated => videoId === rated?.id);
     const isRated = ratedVideo.length > 0;
@@ -29,6 +29,7 @@ function VideoStarRating({ video, videoId, onSetStoredRatedList, storedRatedList
 
   return (
     <StarRating
+      size={size}
       defaultRating={
         storedRatedList.some(rated => rated.id === videoId)
           ? storedRatedList.filter(rated => videoId === rated?.id)[0]?.rating

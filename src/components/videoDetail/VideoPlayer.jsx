@@ -1,19 +1,21 @@
 import YouTube from 'react-youtube';
 
-function VideoPlayer({ selectedVideoId }) {
+function VideoPlayer({ selectedVideoId, height, width }) {
   const option = {
-    height: '315',
-    width: '560',
+    height: height,
+    width: width,
     playerVars: {
       autoplay: 1,
     },
   };
 
   return (
-    <YouTube
-      videoId={selectedVideoId}
-      opts={option}
-    />
+    <div className="w-full">
+      <YouTube
+        videoId={selectedVideoId}
+        opts={option}
+      />
+    </div>
   );
 }
 

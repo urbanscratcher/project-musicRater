@@ -10,7 +10,6 @@ function arrangeVideo(video) {
 
 function SearchedVideo({ video, onSelectMusic, id }) {
   const data = arrangeVideo(video);
-  console.log(video);
 
   return (
     <li
