@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import VideoStarRating from '../videoDetail/VideoStarRating';
 import { useEffect } from 'react';
-import CloseBtn from '../ui/CloseBtn';
+import DeleteBtn from '../ui/DeleteBtn';
 import RatedSummary from './RatedSummary';
 
 function RatedList({ storedRatedList, onSetStoredRatedList, onSetSelectedVideoId }) {
@@ -45,7 +45,7 @@ function RatedList({ storedRatedList, onSetStoredRatedList, onSetSelectedVideoId
                     storedRatedList={ratedList}
                     onSetStoredRatedList={onSetStoredRatedList}
                   />
-                  <CloseBtn onClose={e => handleClose(e, video.id)} />
+                  <DeleteBtn onClose={e => handleClose(e, video.id)} />
                 </li>
               );
             })}

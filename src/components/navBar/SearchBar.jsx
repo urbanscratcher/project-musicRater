@@ -1,10 +1,9 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useKey } from '../../hooks/useKey';
 import useSearchRecommend from '../../hooks/useSearchRecommend';
 import ErrorMessage from '../basics/ErrorMessage';
 import Loader from '../basics/Loader';
 import TextInput from '../ui/TextInput';
-import { useEffect } from 'react';
 import SearchIcon from '../ui/SearchIcon';
 
 function SearchBar({ setQuery, setShowModal, setPage }) {
@@ -12,7 +11,7 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
   const [selectedWord, setSelectedWord] = useState('');
   const [selectedIdx, setSelectedIdx] = useState(-1);
 
-  const inputEl = useRef(null);
+  const inputRef = useRef(null);
   const ulEl = useRef(null);
   const { recommends, isLoading, error } = useSearchRecommend(searchWord);
 
@@ -21,12 +20,17 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
     setSelectedIdx(-1);
   }, [recommends]);
 
-  function handleChange(e) {
-    setSearchWord(inputEl.current.value);
+  function handleChange(e, value) {
+    setSearchWord(inputRef.current.value);
   }
 
   function handleFocus(e) {
     setShowModal(true);
+  }
+
+  function handleClose(e) {
+    setSearchWord('');
+    inputRef.current.focus();
   }
 
   function handleSubmit(e) {
@@ -35,7 +39,7 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
     if (activeElement === e.target.querySelector('input') && searchWord !== '') {
       if (selectedWord !== '') setSearchWord(selectedWord);
       setQuery(selectedWord !== '' ? selectedWord : searchWord);
-      inputEl.current.blur();
+      inputRef.current.blur();
       setShowModal(false);
       setSelectedWord('');
       setSelectedIdx(-1);
@@ -44,8 +48,8 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
   }
 
   useKey('Enter', () => {
-    if (document.activeElement !== inputEl.current) {
-      inputEl.current.focus();
+    if (document.activeElement !== inputRef.current) {
+      inputRef.current.focus();
       setSearchWord('');
     }
     return;
@@ -62,8 +66,6 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
           if (selectedIdx >= -1 && selectedIdx < listLength - 1) {
             setSelectedIdx(selectedIdx => selectedIdx + 1);
             setSelectedWord(ulEl.current.children[selectedIdx + 1].textContent);
-
-            console.log('go down...', selectedIdx + 1);
           }
         }
         break;
@@ -83,7 +85,7 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
       case 'Escape':
         setSearchWord('');
         setShowModal(false);
-        inputEl.current.blur();
+        inputRef.current.blur();
         break;
       default:
         break;
@@ -100,19 +102,27 @@ function SearchBar({ setQuery, setShowModal, setPage }) {
           onChange={handleChange}
           onSubmit={handleSubmit}
           onKeyDown={handleInputKeyDown}
-          inputRef={inputEl}
+          onClose={handleClose}
+          inputRef={inputRef}
           type="search"
         />
-        {document.activeElement === inputEl.current && isLoading && <Loader />}
-        {document.activeElement === inputEl.current && error && <ErrorMessage message={error} />}
-        {document.activeElement === inputEl.current && !isLoading && !error && recommends?.length > 0 && (
+        {document.activeElement === inputRef.current && isLoading && <Loader />}
+        {document.activeElement === inputRef.current && error && <ErrorMessage message={error} />}
+        {document.activeElement === inputRef.current && !isLoading && !error && recommends?.length > 0 && (
           <ul
-            className="flex flex-col"
+            className={`my-2 flex flex-col text-start text-2xl transition-all`}
             ref={ulEl}>
             {recommends.map((recommend, idx) => (
               <li
-                className={recommend === selectedWord ? 'bg-red-500' : ''}
+                className={`${
+                  recommend === selectedWord ? 'font-regular bg-white bg-opacity-20 py-3 text-3xl text-black' : ''
+                } flex w-full gap-3 rounded-full px-9 py-2 transition-all`}
                 key={recommend}>
+                <SearchIcon
+                  color={'#111'}
+                  styleClass={'translate-y-[2px] transition-all'}
+                  size={recommend === selectedWord ? 'md' : 'sm'}
+                />
                 {recommend}
               </li>
             ))}

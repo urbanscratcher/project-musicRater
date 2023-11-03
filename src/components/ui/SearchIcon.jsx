@@ -1,8 +1,8 @@
-function SearchIcon({ color = 'black', styleClass }) {
+function SearchIcon({ color = 'black', styleClass, size = 'md' }) {
   return (
     <span
       role="img"
-      className={'block h-8 w-8 ' + styleClass}>
+      className={`block ${size === 'md' ? 'h-8 w-8' : (size = 'sm' && 'h-6 w-6')} ${styleClass}`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
