@@ -9,15 +9,16 @@ import MainBox from './components/layouts/MainBox';
 import Logo from './components/navBar/Logo';
 import NavBar from './components/navBar/NavBar';
 import NavMenuBox from './components/navBar/NavMenuBox';
-import Search from './components/navBar/Search';
+import SearchBar from './components/navBar/SearchBar';
 import RatedPage from './components/rated/RatedPage';
 import SearchedList from './components/searchedResult/SearchedList';
 import ModalBackground from './components/ui/ModalBackground';
-import PlaylistBtn from './components/ui/PlaylistBtn';
 import StarBtn from './components/ui/StarBtn';
 import VideoDetail from './components/videoDetail/VideoDetail';
 import useLocalStorage from './hooks/useLocalStorage';
 import useMusics from './hooks/useMusics';
+import LogoBox from './components/navBar/LogoBox';
+import SearchBarBox from './components/navBar/SearchBarBox';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -36,25 +37,29 @@ function App() {
     setPage('star');
   }
 
-  function handleClickPlaylist() {
-    setPage('playlist');
+  function handleClickLogo() {
+    setPage('main');
   }
 
   return (
-    <>
+    <div className="mx-auto max-w-screen-2xl">
       <ModalBackground
         showModal={showModal}
         setShowModal={setShowModal}
       />
-      <Header>
-        <NavBar>
-          <Logo />
-          <Search
-            setQuery={setQuery}
-            setShowModal={setShowModal}
-            setPage={setPage}
-          />
-          <NavMenuBox>
+      <Header page={page}>
+        <NavBar page={page}>
+          <LogoBox page={page}>
+            <Logo onClickLogo={handleClickLogo} />
+          </LogoBox>
+          <SearchBarBox page={page}>
+            <SearchBar
+              setQuery={setQuery}
+              setShowModal={setShowModal}
+              setPage={setPage}
+            />
+          </SearchBarBox>
+          <NavMenuBox page={page}>
             <StarBtn
               full={true}
               half={false}
@@ -65,45 +70,49 @@ function App() {
         </NavBar>
       </Header>
 
-      <Body>
-        <>
-          <MainBox>
-            {page === 'star' ? (
-              <RatedPage
-                storedRatedList={storedRatedList}
-                onSetStoredRatedList={setStoredRatedList}
-                onSetSelectedVideoId={setSelectedVideoId}
-              />
-            ) : page === 'playlist' ? (
-              <div>playlist</div>
-            ) : isLoading ? (
-              <Loader />
-            ) : error ? (
-              <ErrorMessage message={error} />
-            ) : (
-              !isLoading &&
-              !error && (
-                <SearchedList
-                  musics={musics.length > 0 && musics}
-                  onSelectMusic={handleSelectMusic}
+      {page === 'main' ? (
+        <></>
+      ) : (
+        <Body>
+          <>
+            <MainBox>
+              {page === 'star' ? (
+                <RatedPage
+                  storedRatedList={storedRatedList}
+                  onSetStoredRatedList={setStoredRatedList}
+                  onSetSelectedVideoId={setSelectedVideoId}
                 />
-              )
-            )}
-          </MainBox>
-          <AsideBox>
-            {selectedVideoId ? (
-              <VideoDetail
-                selectedVideoId={selectedVideoId}
-                storedRatedList={storedRatedList}
-                onSetStoredRatedList={setStoredRatedList}
-              />
-            ) : (
-              <div>basic index page</div>
-            )}
-          </AsideBox>
-        </>
-      </Body>
-    </>
+              ) : page === 'playlist' ? (
+                <div>playlist</div>
+              ) : isLoading ? (
+                <Loader />
+              ) : error ? (
+                <ErrorMessage message={error} />
+              ) : (
+                !isLoading &&
+                !error && (
+                  <SearchedList
+                    musics={musics.length > 0 && musics}
+                    onSelectMusic={handleSelectMusic}
+                  />
+                )
+              )}
+            </MainBox>
+            <AsideBox>
+              {selectedVideoId ? (
+                <VideoDetail
+                  selectedVideoId={selectedVideoId}
+                  storedRatedList={storedRatedList}
+                  onSetStoredRatedList={setStoredRatedList}
+                />
+              ) : (
+                <div>basic index page</div>
+              )}
+            </AsideBox>
+          </>
+        </Body>
+      )}
+    </div>
   );
 }
 

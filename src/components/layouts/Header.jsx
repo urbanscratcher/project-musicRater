@@ -1,13 +1,7 @@
-function Header({ children }) {
-  return (
-    <header
-      className="
-        mx-[auto]
-        max-w-screen-2xl  
-      ">
-      {children}
-    </header>
-  );
+function Header({ children, page }) {
+  const isMain = page === 'main';
+
+  return <header className={`${isMain && 'h-screen'} flex items-center justify-center`}>{children}</header>;
 }
 
 export default Header;

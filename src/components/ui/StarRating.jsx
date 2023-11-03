@@ -34,8 +34,8 @@ function StarRating({ maxRating = 5, primary = true, defaultRating, onSetRating,
   }
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="flex gap-1">
+    <div className="flex items-center gap-2">
+      <div className="flex">
         {Array.from({ length: maxRating }, (_, idx) => {
           return (
             <StarBtn

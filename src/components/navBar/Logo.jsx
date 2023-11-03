@@ -1,6 +1,8 @@
-function Logo() {
+function Logo({ onClickLogo }) {
   return (
-    <div className="flex items-center gap-[0.8rem]">
+    <div
+      className="flex cursor-pointer items-center gap-[0.8rem]"
+      onClick={onClickLogo}>
       <span
         className="text-5xl"
         role="img">

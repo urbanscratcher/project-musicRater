@@ -5,8 +5,9 @@ import ErrorMessage from '../basics/ErrorMessage';
 import Loader from '../basics/Loader';
 import TextInput from '../ui/TextInput';
 import { useEffect } from 'react';
+import SearchIcon from '../ui/SearchIcon';
 
-function Search({ setQuery, setShowModal, setPage }) {
+function SearchBar({ setQuery, setShowModal, setPage }) {
   const [searchWord, setSearchWord] = useState('');
   const [selectedWord, setSelectedWord] = useState('');
   const [selectedIdx, setSelectedIdx] = useState(-1);
@@ -91,7 +92,7 @@ function Search({ setQuery, setShowModal, setPage }) {
 
   return (
     <div className="relative w-[100%] self-stretch">
-      <div className="absolute left-[50%] top-[18%] z-20 translate-x-[-50%]">
+      <div className="absolute top-[18%] z-20 w-[100%]">
         <TextInput
           placeholder="Search songs, artists, etc..."
           value={searchWord}
@@ -100,6 +101,7 @@ function Search({ setQuery, setShowModal, setPage }) {
           onSubmit={handleSubmit}
           onKeyDown={handleInputKeyDown}
           inputRef={inputEl}
+          type="search"
         />
         {document.activeElement === inputEl.current && isLoading && <Loader />}
         {document.activeElement === inputEl.current && error && <ErrorMessage message={error} />}
@@ -120,4 +122,4 @@ function Search({ setQuery, setShowModal, setPage }) {
     </div>
   );
 }
-export default Search;
+export default SearchBar;
