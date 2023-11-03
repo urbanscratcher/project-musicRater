@@ -7,7 +7,7 @@
 - React, React-DOM만 사용
 
 ## 데모
-
+https://github.com/urbanscratcher/project-musicRater/assets/17016494/8e236eae-5a6e-4386-9e51-19223b317e7f
 
 ## 기능
 
