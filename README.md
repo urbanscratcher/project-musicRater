@@ -26,7 +26,6 @@ https://github.com/urbanscratcher/project-musicRater/assets/17016494/8e236eae-5a
 
 - Vite + React w/ pnpm
 - TailwindCSS
-- Docker
 - react-youtube (YouTube IFrame API)
 - react-top-loading-bar
 
