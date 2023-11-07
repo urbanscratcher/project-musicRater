@@ -33,9 +33,8 @@ https://github.com/urbanscratcher/project-musicRater/assets/17016494/8e236eae-5a
 ## 백엔드 API
 - ytmusicapi 파이썬 라이브러리 이용
 - 간단한 GET 엔드포인트로 이루어진 API
-- 현재 오라클 클라우드에 도커로 배포
-- https://placidgull.com/ytapi 도메인 연결
-- CORS
+- 현재 오라클 클라우드에 도커로 배포 (https://placidgull.com/ytapi 도메인 연결)
+- CORS 적용
 
 ## 개발 여담
 - 리액트 복습 개념으로 시작한 프로젝트...인데
