@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getBaseUrl } from '../helper/helper';
+import { getBaseUrl } from '../utils/helper';
 
 function useSearchRecommend(query) {
   const [recommends, setRecommends] = useState([]);

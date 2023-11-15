@@ -1,4 +1,4 @@
-import StarRating from '../ui/StarRating';
+import StarRating from '../../ui/StarRating';
 
 function VideoStarRating({ video, videoId, onSetStoredRatedList, storedRatedList, size }) {
   function handleSetRating(video, rating) {

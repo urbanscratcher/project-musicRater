@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getBaseUrl } from '../helper/helper';
+import { getBaseUrl } from '../utils/helper';
 
 function useGetVideo(videoId) {
   const [video, setVideo] = useState({});

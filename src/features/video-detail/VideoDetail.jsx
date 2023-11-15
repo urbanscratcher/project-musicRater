@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import useGetVideo from '../../hooks/useGetVideo';
-import ErrorMessage from '../basics/ErrorMessage';
-import Loader from '../basics/Loader';
+import ErrorMessage from '../../ui/ErrorMessage';
+import Loader from '../../ui/Loader';
 import VideoPlayer from './VideoPlayer';
 import VideoStarRating from './VideoStarRating';
 import { useState } from 'react';

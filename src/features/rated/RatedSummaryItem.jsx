@@ -1,4 +1,4 @@
-import StarRating from '../ui/StarRating';
+import StarRating from '../../ui/StarRating';
 
 function RatedSummaryItem({ label, calculated }) {
   return (

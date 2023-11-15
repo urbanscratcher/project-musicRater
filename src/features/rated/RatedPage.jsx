@@ -1,4 +1,4 @@
-import EmptyResult from '../ui/EmptyResult';
+import EmptyResult from '../../ui/EmptyResult';
 import RatedList from './RatedList';
 import RatedSummary from './RatedSummary';
 

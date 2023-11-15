@@ -1,4 +1,4 @@
-import EmptyResult from '../ui/EmptyResult';
+import EmptyResult from '../../ui/EmptyResult';
 import SearchedTop from './SearchedTop';
 import SearchedVideoItem from './SearchedVideoItem';
 

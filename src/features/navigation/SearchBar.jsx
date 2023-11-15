@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useKey } from '../../hooks/useKey';
 import useSearchRecommend from '../../hooks/useSearchRecommend';
-import ErrorMessage from '../basics/ErrorMessage';
-import Loader from '../basics/Loader';
-import TextInput from '../ui/TextInput';
-import SearchIcon from '../ui/SearchIcon';
+import ErrorMessage from '../../ui/ErrorMessage';
+import Loader from '../../ui/Loader';
+import TextInput from '../../ui/TextInput';
+import SearchIcon from '../../ui/SearchIcon';
 
 function SearchBar({ setQuery, setShowModal, setPage, onSetProgress }) {
   const [searchWord, setSearchWord] = useState('');

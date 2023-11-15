@@ -1,4 +1,4 @@
-import { average, maximum, minimum } from '../../helper/helper';
+import { average, maximum, minimum } from '../../utils/helper';
 import RatedSummaryItem from './RatedSummaryItem';
 
 function RatedSummary({ ratedList }) {

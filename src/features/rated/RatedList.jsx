@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import DeleteBtn from '../ui/DeleteBtn';
-import VideoStarRating from '../videoDetail/VideoStarRating';
+import DeleteBtn from '../../ui/DeleteBtn';
+import VideoStarRating from '../video-detail/VideoStarRating';
 
 function RatedList({ storedRatedList, onSetStoredRatedList, onSelectMusic }) {
   const [ratedList, setRatedList] = useState([]);
