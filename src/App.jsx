@@ -26,7 +26,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [selectedVideoId, setSelectedVideoId] = useState(null);
   const [query, setQuery] = useState('');
-  const [page, setPage] = useState('');
+  const [page, setPage] = useState('main');
   const [storedRatedList, setStoredRatedList] = useLocalStorage([], 'rated');
   const [progress, setProgress] = useState(0);
 
