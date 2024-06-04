@@ -1,39 +1,45 @@
 # MusicRater
 
-## 목적
+2023년 7월 (1개월)
 
-- 음악 검색, 평가, 평가 항목 관리
-- useState, useEffect, useRef, custom use hook 연습에 주력
-- React, React-DOM만 사용
+리액트 강의를 듣고 완성한 음악 평가 웹사이트입니다. 리액트의 기본 기능과 use 훅을 연습하고, 전역 상태 관리에 대해 이해하는 데 중점을 두었습니다.
 
-## URL
+## 주요 기능
+- **검색어 추천**: 검색창에 키워드를 입력하면 추천 검색어가 뜹니다.
+- **검색 편의성**: 검색 취소시 ESC 키, 검색어 선택시 화살표 방향키, 검색시 엔터 키를 활용해 편리하게 검색할 수 있습니다.
+- **음악 검색**: 유튜브 음악을 검색할 수 있습니다.
+- **음악 평가**: 음악을 평가할 수 있으며 평가된 항목은 보관함에 자동으로 저장됩니다.
+- **평점 요약**: 최저, 최고, 평균 평점을 알 수 있으며, 평점 추가 및 수정시 실시간으로 전역 반영됩니다.
+- **평가 항목 관리**: 보관함에 저장된 평가 항목을 삭제할 수 있으며 목록에서 바로 평가를 수정할 수 있습니다.
+
+## 기술적 중점 사항
+- 다른 라이브러리 도움 없이 React와 React-DOM만 사용했습니다.
+- `useState`, `useEffect`, `useRef`, 커스텀 use hook 연습에 주력했습니다.
+
+## 시연
 https://music-rater.netlify.app
 
-## 기능
+## 기술 구성
+### 프론트엔드
+- **라이브러리**: React
+- **스타일링**: TailwindCSS
+- **컴포넌트 라이브러리**: react-top-loading-bar
+- **저장소**: localStorage
 
-- 유튜브 음악 검색
-- 추천 검색어 제공
-- 평점 남기기
-- 평점 요약 (최저, 최고, 평균)
-- 남긴 평점 목록 보기
-- 평점 기능은 전역적으로 적용
-- 검색창 엔터키(검색), ESC키(취소) 기능 사용
+### 백엔드
+- 유튜브 음악 검색을 위해 써드파티 라이브러리를 감싼 API를 따로 Python으로 개발했습니다. [깃헙 바로가기](https://github.com/urbanscratcher/api-yt-music)
+- **써드파티 라이브러리**: ytmusicapi
+- **프레임워크**: FastAPI
+- **ASGI 서버**: Uvicorn
+  - 파이썬 프로젝트와 웹 서버 간 비동기 통신을 위한 서버
 
-## 데모
-https://github.com/urbanscratcher/project-musicRater/assets/17016494/8e236eae-5a6e-4386-9e51-19223b317e7f
+### 개발 환경
+- **패키지 관리**: pnpm
+- **빌드 도구**: Vite
 
-## 사용 라이브러리 & 기술
-
-- Vite + React w/ pnpm
-- TailwindCSS
-- react-youtube (YouTube IFrame API)
-- react-top-loading-bar
-
-## 백엔드 API
-- ytmusicapi 파이썬 라이브러리 이용
-- 간단한 GET 엔드포인트로 이루어진 API
-- 현재 오라클 클라우드에 도커로 배포 (https://**** 내가 소유하고 있는 도메인으로 연결)
-- CORS 적용
+### 클라우드 서비스 및 배포
+- **API 배포**: Oracle Cloud, Docker, Nginx (https://**** 개인 도메인으로 연결)
+- **호스팅 및 배포**: Netlify
 
 ## 개발 여담
 - 리액트 복습 개념으로 시작한 프로젝트...인데 API가 필요하네 -> 필요한 라이브러리 찾음 -> 파이썬이네 -> 어찌어찌 만듦
