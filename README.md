@@ -1,6 +1,6 @@
 # Music Rater
 
-July 2023 (1 Month)
+October 2023 ~ November 2023 (2 Months)
 
 This music rating website was completed after taking a React course. I focused on practicing basic React features and use hooks, as well as understanding global state management.
 
