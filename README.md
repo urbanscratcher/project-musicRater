@@ -1,49 +1,53 @@
+# Music Rater
 
-# MusicRater
+July 2023 (1 Month)
 
-## Purpose
-
-- Music search, rating, and rating item management
-- Focus on practicing useState, useEffect, useRef, custom hooks
-- Only using React and React-DOM
-
-## URL
-https://music-rater.netlify.app
+This music rating website was completed after taking a React course. I focused on practicing basic React features and use hooks, as well as understanding global state management.
 
 ## Features
+- **Keyword Suggestions**: Recommended keywords appear when you type keywords in the search bar.
+- **Search Convenience**: You can search conveniently using the ESC key to cancel search, arrow keys to select search terms, and the Enter key to search.
+- **Music Search**: You can search for YouTube music.
+- **Music Rating**: You can rate music, and the rated items are automatically saved to the vault.
+- **Rating Summary**: You can see the minimum, maximum, and average ratings, and the ratings are reflected globally in real time when you add or modify ratings.
+- **Rating Item Management**: You can delete rating items saved in the vault and modify ratings directly from the list.
 
-- Search for music on YouTube
-- Provide recommended search terms
-- Leave ratings
-- Rating summary (minimum, maximum, average)
-- View list of ratings
-- Rating function is applied globally
-- Search box uses Enter key (search), ESC key (cancel) functionality
+## Technical Focus
+- I used only React and React-DOM without any other libraries.
+- I focused on practicing `useState`, `useEffect`, `useRef`, and custom use hooks.
 
 ## Demo
-https://github.com/urbanscratcher/project-musicRater/assets/17016494/8e236eae-5a6e-4386-9e51-19223b317e7f
+<video src="https://github.com/urbanscratcher/project-musicRater/assets/17016494/90a09aa0-fa15-4d64-b22f-615f3100ce2a" controls></video>
 
-## Libraries & Technologies Used
+[사이트 바로가기](https://music-rater.netlify.app)
 
-- Vite + React w/ pnpm
-- TailwindCSS
-- react-youtube (YouTube IFrame API)
-- react-top-loading-bar
+## Tech Stack
+### Frontend
+- **Library**: React
+- **Styling**: TailwindCSS
+- **Component Library**: react-top-loading-bar
+- **Storage**: localStorage
 
-## Backend API
-- Using ytmusicapi Python library
-- Simple GET endpoint API
-- Currently deployed with Docker on Oracle Cloud (connected to a domain I own at https://****)
-- CORS applied
+### Backend
+- I developed an API separately in Python using a third-party library to wrap YouTube music search. [Go to GitHub](https://github.com/urbanscratcher/api-yt-music)
+- **Third-party library**: ytmusicapi
+- **Framework**: FastAPI
+- **ASGI Server**: Uvicorn
+  - Server for asynchronous communication between Python projects and web servers
 
-## Development Notes
-- Started as a project to review React concepts... then I needed an API -> found the necessary library -> it's in Python -> somehow managed to make it
-  -> needed a server -> AWS expired -> switched to Oracle Cloud because it's free forever -> researched Oracle-specific terms and set up the server
-  -> configured nginx -> needed https -> got a domain -> reset everything, etc. Spent 80% of the time on non-development tasks.
-- Implementing the search box was fun.
-- Started using TailwindCSS, which is said to be perfect with React, and it really is convenient, especially if you already know CSS well.
-  - The downside is readability. Even with a VS plugin that sorts order, it seems to not recognize the arbitrary numbers in the [ ] syntax, so I had to manage it manually.
-- I use it often these days and it's surprisingly useful.
-  - Considering extending this idea using the YouTube search API for other projects.
+### Development Environment
+- **Package Management**: pnpm
+- **Build Tool**: Vite
 
+### Cloud Services and Deployment
+- **API Deployment**: Oracle Cloud, Docker, Nginx (connected to personal domain link(https://***))
+- **Hosting and Deployment**: Netlify
 
+---
+## Reflection
+- I started this project as a React concept review, but I needed an API. I found the necessary library in Python and made it work somehow. However, I realized that I needed a server, and my AWS account had already expired. So I switched to Oracle Cloud, which is free for life, and set up a server. After learning Oracle terminology and configuring Nginx, I learned that I also needed an HTTPS address to solve the CORS issue. Eventually, I had to purchase a domain and set it up again. As a result, I spent 80% of my time on non-development tasks.
+- Implementing the search bar was really fun.
+- I tried using TailwindCSS, which is well-suited for React, and realized that it is more effective to use it when I know CSS well.
+- However, the downside of TailwindCSS was its readability. I used a VS plugin to sort the order, but it seemed not to recognize the [] syntax with arbitrary numbers, so I had to sort it manually.
+- I've been using it a lot lately in my work, and it's more substantial than I thought.
+- I'm also thinking of expanding it using the YouTube Search API.
