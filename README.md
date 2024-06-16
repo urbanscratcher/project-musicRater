@@ -1,5 +1,7 @@
 # Music Rater
 
+[Visit the site](https://music-rater.netlify.app)
+
 October 2023 ~ November 2023 (2 Months)
 
 This music rating website was completed after taking a React course. I focused on practicing basic React features and use hooks, as well as understanding global state management.
@@ -18,8 +20,6 @@ This music rating website was completed after taking a React course. I focused o
 
 ## Demo
 <video src="https://github.com/urbanscratcher/project-musicRater/assets/17016494/90a09aa0-fa15-4d64-b22f-615f3100ce2a" controls></video>
-
-[사이트 바로가기](https://music-rater.netlify.app)
 
 ## Tech Stack
 ### Frontend
