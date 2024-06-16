@@ -1,4 +1,5 @@
 # Music Rater
+[사이트 바로가기](https://music-rater.netlify.app)
 
 2023년 10월 ~ 11월 (2개월)
 
